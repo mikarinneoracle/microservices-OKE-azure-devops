@@ -29,3 +29,17 @@ steps:
     namespace: '$(K8S_NAMESPACE)'
     dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy To K8s Cluster - test container'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: '$(K8S_NAMESPACE)'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/deployment.yml
+      $(System.DefaultWorkingDirectory)/service.yml
+    imagePullSecrets: |
+      $(OcirPullSecret)
+    containers: |
+      $(containerImageFullNameForK8sDeploy)
