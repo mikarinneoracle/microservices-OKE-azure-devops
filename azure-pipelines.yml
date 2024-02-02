@@ -41,4 +41,4 @@ steps:
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
-      $(containerImageFullNameForK8sDeploy)
+      $(containerImageFullNameForK8sDeploy):$(Build.BuildNumber)
