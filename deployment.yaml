@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: httpd
-        image: $(ontainerImageFullNameForK8sDeploy):$(Build.BuildNumber)
+        image: ${containerImageFullNameForK8sDeploy}:${Build.BuildNumber}
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
