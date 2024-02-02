@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: httpd
-        image: ${containerImageFullNameForK8sDeploy}:${Build.BuildNumber}
+        image: fra.ocir.io/frsxwtjslf35/azure-test:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
