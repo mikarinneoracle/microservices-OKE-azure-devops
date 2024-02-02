@@ -17,5 +17,5 @@ steps:
     buildContext: '$(System.DefaultWorkingDirectory)'
     Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
     containerRegistry: '$(CONTAINER_REGISTRY)'
-    repository: '$(MSGEVENTWORKER_CONTAINER_REPOSITORY)'
+    repository: '$(CONTAINER_REPOSITORY)'
     tags: $(Build.BuildNumber)
