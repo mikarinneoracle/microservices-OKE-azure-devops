@@ -38,7 +38,6 @@ steps:
     namespace: '$(K8S_NAMESPACE)'
     manifests: |
       $(System.DefaultWorkingDirectory)/deployment.yml
-      $(System.DefaultWorkingDirectory)/service.yml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
