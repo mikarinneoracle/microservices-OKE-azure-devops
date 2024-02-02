@@ -1,0 +1,55 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Docker@2
+  inputs:
+    command: login
+    containerRegistry: '$(CONTAINER_REGISTRY)'
+  condition: succeeded()
+  displayName: 'Login to Azure Container Registry'
+
+
+- task: Docker@2
+  inputs:
+    command: buildAndPush
+    #command: build
+    buildContext: '$(System.DefaultWorkingDirectory)'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/Docker/PricingApiMsgEventsWorker/Dockerfile'
+    containerRegistry: '$(CONTAINER_REGISTRY)'
+    repository: '$(MSGEVENTWORKER_CONTAINER_REPOSITORY)'
+    tags: $(Build.BuildNumber)
+  condition: succeeded()
+  displayName: 'Build & Push Container Image - PricingApiMsgEventsWorker'
+
+
+- task: KubernetesManifest@0
+  inputs:
+    action: 'createSecret'
+    secretType: 'dockerRegistry'
+    secretName: '$(PricingApiImagePullSecret)'
+    namespace: '$(K8S_NAMESPACE)'
+    dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+  condition: succeeded()
+  displayName: 'Setup secret'
+
+- task: KubernetesManifest@0
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: '$(K8S_NAMESPACE)'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/Kubernetes/DoorApi/deployment.yml
+      $(System.DefaultWorkingDirectory)/Kubernetes/DoorApi/secret.yml
+      $(System.DefaultWorkingDirectory)/Kubernetes/DoorApi/service.yml
+    imagePullSecrets: |
+      $(DoorApiImagePullSecret)
+    containers: |
+      $(DoorApicontainerImageFullNameForK8sDeploy)
+  condition: succeeded()
+  displayName: 'Deploy To K8s Cluster - DoorApi'
+
