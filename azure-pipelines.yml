@@ -19,3 +19,13 @@ steps:
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY)'
     tags: $(Build.BuildNumber)
+
+- task: KubernetesManifest@0
+  displayName: 'Setup secret'
+  inputs: 
+    action: 'createSecret'
+    secretType: 'dockerRegistry'
+    secretName: '$(OcirPullSecret)'
+    namespace: '$(K8S_NAMESPACE)'
+    dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
