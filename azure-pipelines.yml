@@ -11,11 +11,11 @@ steps:
     command: login
     containerRegistry: '$(CONTAINER_REGISTRY)'
 - task: Docker@2
-  displayName: 'Build & Push Container Image'
+  displayName: 'Build & Push Container Image $(Build.BuildNumber)'
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
     Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY)'
-    tags: $(Build.BuildNumber)
+    tags: 1
