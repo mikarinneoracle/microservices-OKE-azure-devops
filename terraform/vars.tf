@@ -18,6 +18,11 @@ variable "tags" {
   default = "Created by Azure DevOps"
 }
 
+variable "demo_image_source_ocid" {
+  type    = string
+  default = "ocid1.image.oc1.eu-amsterdam-1.aaaaaaaahrz23nupvnphrewb35pwvn35bgcq5osths6iloszojm26slb2v4q"
+}
+
 variable "demo_shape" {
   type    = string
   default = "VM.Standard.E4.Flex"
@@ -30,7 +35,7 @@ variable "demo_shape_mem" {
 
 variable "demo_shape_ocpus" {
   type    = string
-  default = "2"
+  default = "1"
 }
 
 variable "ssh_public_key" {
