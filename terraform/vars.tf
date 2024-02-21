@@ -1,7 +1,5 @@
 variable "region" {
   type    = string
-  default = "REGION"
-  #default = "eu-amsterdam-1"
 }
 
 variable "compartment_id" {
