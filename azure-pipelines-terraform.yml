@@ -12,5 +12,6 @@ pool:
 steps:
 - script: |
     terraform init
+    terraform plan
 
   displayName: 'Run Terraform'
