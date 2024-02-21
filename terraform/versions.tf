@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "http" {
-    address = "https://objectstorage.eu-amsterdam-1.oraclecloud.com/p/q-9i-3q__W7TSVv-9OXoc4XMHkfYTc1vcn1xWvOki1hv1fhKT1qnBUe9T8MYpacQ/n/frsxwtjslf35/b/tf-state/o/terraform.tfstate"
+    address = "https://objectstorage.eu-amsterdam-1.oraclecloud.com/p/MqM0Iu1E6DXSYVjS5jD8jjvWLY72QBm1VQ_6M2SuJqcmSKHBMDDdltzepuSMWY8o/n/frsxwtjslf35/b/tf-state/o/terraform.tfstate"
     update_method = "PUT"
   }
 }
