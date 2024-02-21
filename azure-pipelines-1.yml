@@ -9,4 +9,5 @@ steps:
 - script: |
     export OCI_CLI_AUTH=instance_principal
     oci os ns get
+    terraform
   displayName: 'cli testing'
