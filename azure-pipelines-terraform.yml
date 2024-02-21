@@ -13,8 +13,8 @@ steps:
 - script: |
     cd terraform
     terraform init
-    terraform plan
+    # terraform plan
     terraform apply -auto-approve
-    #terraform destroy -auto-approve
+    terraform destroy -auto-approve
 
   displayName: 'Run Terraform'
