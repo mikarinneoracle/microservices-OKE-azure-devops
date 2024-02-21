@@ -6,12 +6,12 @@ terraform {
     }
   }
   backend "http" {
-    address = "https://objectstorage.eu-amsterdam-1.oraclecloud.com/p/q-9i-3q__W7TSVv-9OXoc4XMHkfYTc1vcn1xWvOki1hv1fhKT1qnBUe9T8MYpacQ/n/frsxwtjslf35/b/tf-state/o/state/terraform.tfstate"
+    address = "https://objectstorage.eu-amsterdam-1.oraclecloud.com/p/q-9i-3q__W7TSVv-9OXoc4XMHkfYTc1vcn1xWvOki1hv1fhKT1qnBUe9T8MYpacQ/n/frsxwtjslf35/b/tf-state/o/terraform.tfstate"
     update_method = "PUT"
   }
 }
 
 provider "oci" {
    auth = "InstancePrincipal"
-   region = "eu-frankfurt-1"
+   region = "eu-amsterdam-1"
 }
