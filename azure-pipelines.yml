@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: oci-vm
+  name: default
 
 steps:
 - task: NodeTool@0
