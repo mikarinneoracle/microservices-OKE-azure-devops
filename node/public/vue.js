@@ -27,13 +27,13 @@ function getTierPrice(tier, callback) {
                 switch(tier)
                 {
                     case 'FREE':
-                        data.free.price = resp.data;
+                        data.free.price = resp.data[0];
                         break;
                     case 'PRO':
-                        data.pro.price = resp.data;
+                        data.pro.price = resp.data[0];
                         break;
                     case 'ENTERPRISE':
-                        data.enterprise.price = resp.data;
+                        data.enterprise.price = resp.data[0];
                         break;
                     default:
                         console.log('undefined tier ' + tier);
