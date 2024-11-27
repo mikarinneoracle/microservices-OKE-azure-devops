@@ -40,11 +40,13 @@ alter session set "_ORACLE_SCRIPT"=true;
 
 CREATE USER nodeapp IDENTIFIED BY WelcomeFolks123##;
 
-GRANT ALL ON PRICE to nodeapp;
+GRANT ALL ON PRICE TO nodeapp;
 
-GRANT ALL ON OPTIONS to nodeapp;
+GRANT ALL ON OPTIONS TO nodeapp;
 
-GRANT SYSDBA to nodeapp;
+GRANT CONNECT TO nodeapp;
+
+GRANT SYSDBA TO nodeapp;
 
 INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES ('FREE', 0, 1, 10, 'Email Support');
 INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES ('PRO', 10, 15, 200, 'Priority Email Support');
