@@ -56,7 +56,7 @@
           <p class="fs-5 text-muted">
               Quickly build an effective pricing table for your potential customers with this Bootstrap example. 
               It’s built with default Bootstrap components and utilities with little customization. 
-              Using VueJS for dynamic values on page.
+              Using VueJS for dynamic values on page. Application runs on OKE on OCI and is written in NodeJS using Oracledb lib.
         </div>
       </header>
         
@@ -127,63 +127,64 @@
                 <th style="width: 22%;">Enterprise</th>
               </tr>
             </thead>
+
             <tbody>
               <tr>
                 <th scope="row" class="text-start">Public</th>
-                <td v-if="data.free.options.ispublic == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.free.options.ispublic != 'Y'"></td> 
-                <td v-if="data.pro.options.ispublic == 'Y'" ><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.pro.options.ispublic != 'Y'"></td>
-                <td v-if="data.enterprise.options.ispublic == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="!data.enterprise.options.ispublic != 'Y'"></td>
+                <td v-if="data.free.options.ISPUBLIC == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.free.options.ISPUBLIC != 'Y'"></td> 
+                <td v-if="data.pro.options.ISPUBLIC == 'Y'" ><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.pro.options.ISPUBLIC != 'Y'"></td>
+                <td v-if="data.enterprise.options.ISPUBLIC == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="!data.enterprise.options.ISPUBLIC != 'Y'"></td>
               </tr>
               <tr>
                 <th scope="row" class="text-start">Private</th>
-                <td v-if="data.free.options.isprivate == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.free.options.isprivate != 'Y'"></td> 
-                <td v-if="data.pro.options.isprivate == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.pro.options.isprivate != 'Y'"></td>
-                <td v-if="data.enterprise.options.isprivate == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.enterprise.options.isprivate != 'Y'"></td>
+                <td v-if="data.free.options.ISPRIVATE == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.free.options.ISPRIVATE != 'Y'"></td> 
+                <td v-if="data.pro.options.ISPRIVATE == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.pro.options.ISPRIVATE != 'Y'"></td>
+                <td v-if="data.enterprise.options.ISPRIVATE == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.enterprise.options.ISPRIVATE != 'Y'"></td>
               </tr>
             </tbody>
 
             <tbody>
               <tr>
                 <th scope="row" class="text-start">Permissions</th>
-                <td v-if="data.free.options.ispermissions == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.free.options.ispermissions != 'Y'"></td> 
-                <td v-if="data.pro.options.ispermissions == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.pro.options.ispermissions != 'Y'"></td>
-                <td v-if="data.enterprise.options.ispermissions == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.enterprise.options.ispermission != 'Y'"></td>
+                <td v-if="data.free.options.ISPERMISSIONS == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.free.options.ISPERMISSIONS != 'Y'"></td> 
+                <td v-if="data.pro.options.ISPERMISSIONS == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.pro.options.ISPERMISSIONS != 'Y'"></td>
+                <td v-if="data.enterprise.options.ISPERMISSIONS == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.enterprise.options.ISPERMISSIONS != 'Y'"></td>
               </tr>
               <tr>
                 <th scope="row" class="text-start">Sharing</th>
-                <td v-if="data.free.options.issharing == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.free.options.issharing != 'Y'"></td> 
-                <td v-if="data.pro.options.issharing == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.pro.options.issharing != 'Y'"></td>
-                <td v-if="data.enterprise.options.issharing == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.enterprise.options.issharing != 'Y'"></td>
+                <td v-if="data.free.options.ISSHARING == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.free.options.ISSHARING != 'Y'"></td> 
+                <td v-if="data.pro.options.ISSHARING == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.pro.options.ISSHARING != 'Y'"></td>
+                <td v-if="data.enterprise.options.ISSHARING == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.enterprise.options.ISSHARING != 'Y'"></td>
               </tr>
               <tr>
                 <th scope="row" class="text-start">Unlimited members</th>
-                <td v-if="data.free.options.isunlimited == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.free.options.isunlimited != 'Y'"></td> 
-                <td v-if="data.pro.options.isunlimited == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.pro.options.isunlimited != 'Y'"></td>
-                <td v-if="data.enterprise.options.isunlimited == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="!data.enterprise.options.isunlimited != 'Y'"></td>
+                <td v-if="data.free.options.ISUNLIMITED == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.free.options.ISUNLIMITED != 'Y'"></td> 
+                <td v-if="data.pro.options.ISUNLIMITED == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.pro.options.ISUNLIMITED != 'Y'"></td>
+                <td v-if="data.enterprise.options.ISUNLIMITED == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="!data.enterprise.options.ISUNLIMITED != 'Y'"></td>
               </tr>
               <tr>
                 <th scope="row" class="text-start">Extra security</th>
-                <td v-if="data.free.options.isextrasec == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.free.options.isextrasec != 'Y'"></td> 
-                <td v-if="data.pro.options.isextrasec == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="data.pro.options.isextrasec != 'Y'"></td>
-                <td v-if="data.enterprise.options.isextrasec == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                <td v-if="!data.enterprise.options.isextrasec != 'Y'"></td>
+                <td v-if="data.free.options.ISEXTRASEC == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.free.options.ISEXTRASEC != 'Y'"></td> 
+                <td v-if="data.pro.options.ISEXTRASEC == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="data.pro.options.ISEXTRASEC != 'Y'"></td>
+                <td v-if="data.enterprise.options.ISEXTRASEC == 'Y'"><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                <td v-if="!data.enterprise.options.ISEXTRASEC != 'Y'"></td>
               </tr>
             </tbody>
           </table>
@@ -191,6 +192,7 @@
       </main>
   
     </div>
+    <img href="https://dev.azure.com/mikarinneoracle/oke-testing/_apis/build/status%2Foke-testing?branchName=main">
 </div>
 <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.js"></script>

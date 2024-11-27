@@ -58,13 +58,13 @@ function getTierOptions(tier, callback) {
                 switch(tier)
                 {
                     case 'FREE':
-                        data.free.options = resp.data;
+                        data.free.options = resp.data[0];
                         break;
                     case 'PRO':
-                        data.pro.options = resp.data;
+                        data.pro.options = resp.data[0];
                         break;
                     case 'ENTERPRISE':
-                        data.enterprise.options = resp.data;
+                        data.enterprise.options = resp.data[0];
                         break;
                     default:
                         console.log('undefined tier ' + tier);
