@@ -82,7 +82,10 @@ async function closePoolAndExit() {
 }
 
 app.get('/', (req, res) => {
-  res.send(getDate());
+  getDate().then((date) => {
+     console.log(date);
+     res.send(date);
+  });
 });
 
 app.listen(port, () => {
