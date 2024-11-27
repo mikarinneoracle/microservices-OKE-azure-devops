@@ -21,8 +21,8 @@ spec:
         ports:
         - containerPort: 1521
         env:
-        - name: ORACLE_PWD
-          value: "WelcomeFolks123##"
+          - name: ORACLE_PWD
+            value: "WelcomeFolks123##"
       - name: app
         image: fra.ocir.io/frsxwtjslf35/azure-test:1
         imagePullPolicy: Always
