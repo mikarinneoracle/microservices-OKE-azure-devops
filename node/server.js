@@ -11,7 +11,7 @@ async function init() {
     await oracledb.createPool({
       user: "admin",
       password: "WelcomeFolks123##",
-      connectString: "//localhost:1521:XE",
+      connectString: "//localhost:1521/XE",
       // edition: 'ORA$BASE', // used for Edition Based Redefintion
       // events: false, // whether to handle Oracle Database FAN and RLB events or support CQN
       // externalAuth: false, // whether connections should be established using External Authentication
