@@ -19,12 +19,23 @@ steps:
   inputs:
     command: login
     containerRegistry: '$(CONTAINER_REGISTRY)'
+
 - task: Docker@2
-  displayName: 'Build & Push Container Image $(Build.BuildNumber)'
+  displayName: 'Build & Push DB Image $(Build.BuildNumber)'
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-db'
+    containerRegistry: '$(CONTAINER_REGISTRY)'
+    repository: '$(CONTAINER_REPOSITORY)'
+    tags: $(Build.BuildNumber)
+
+- task: Docker@2
+  displayName: 'Build & Push Node Image $(Build.BuildNumber)'
+  inputs:
+    command: buildAndPush
+    buildContext: '$(System.DefaultWorkingDirectory)'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/node/Dockerfile-node'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY)'
     tags: $(Build.BuildNumber)
