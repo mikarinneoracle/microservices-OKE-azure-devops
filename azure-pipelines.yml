@@ -27,7 +27,7 @@ steps:
     buildContext: '$(System.DefaultWorkingDirectory)'
     Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-db'
     containerRegistry: '$(CONTAINER_REGISTRY)'
-    repository: '$(CONTAINER_REPOSITORY)'
+    repository: '$(CONTAINER_REPOSITORY_DB)'
     tags: $(Build.BuildNumber)
 
 - task: Docker@2
@@ -63,3 +63,4 @@ steps:
       $(OcirPullSecret)
     containers: |
       $(containerImageFullNameForK8sDeploy):$(Build.BuildNumber)
+      $(containerDBImageFullNameForK8sDeploy):$(Build.BuildNumber)
