@@ -79,7 +79,7 @@ async function closePoolAndExit() {
 
 app.get('/price/:tier', (req, res) => {
   getPrice(req.params['tier']).then((data) => {
-     res.send(data);
+     res.send(data.rows);
   });
 });
 
