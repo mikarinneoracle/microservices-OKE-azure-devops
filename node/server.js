@@ -38,7 +38,7 @@ async function init() {
   }
 }
 
-async function dostuff() {
+async function getDate() {
   let connection;
   try {
     // Get a connection from the default pool
@@ -46,7 +46,7 @@ async function dostuff() {
     const sql = `SELECT CURRENT_DATE FROM dual WHERE :b = 1`;
     const binds = [1];
     const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
-    const result = await connection.execute(sql, binds, options);
+    var result = await connection.execute(sql, binds, options);
     console.log(result);
     // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
   } catch (err) {
@@ -59,6 +59,7 @@ async function dostuff() {
       } catch (err) {
         console.error(err);
       }
+      return result;
     }
   }
 }
@@ -81,13 +82,12 @@ async function closePoolAndExit() {
 }
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send(getDate());
 });
 
 app.listen(port, () => {
   init();
   console.log(`Example app listening on port ${port}`);
-  dostuff();
 });
 
 process
