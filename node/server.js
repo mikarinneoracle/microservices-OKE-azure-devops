@@ -9,7 +9,7 @@ async function init() {
     // Create a connection pool which will later be accessed via the
     // pool cache as the 'default' pool.
     await oracledb.createPool({
-      user: "system",
+      user: "sysdba",
       password: "WelcomeFolks123##",
       connectString: "localhost/XE",
       // edition: 'ORA$BASE', // used for Edition Based Redefintion
@@ -40,7 +40,7 @@ async function getPrice(tier) {
   try {
     // Get a connection from the default pool
     connection = await oracledb.getConnection();
-    const sql = `SELECT price_mo, users, storage, support FROM sysdba.price WHERE tier = :tier`;
+    const sql = `SELECT price_mo, users, storage, support FROM price WHERE tier = :tier`;
     const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
     const binds = {tier: tier}; 
     var result = await connection.execute(sql, binds, options);
