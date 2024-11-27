@@ -6,6 +6,8 @@ GRANT CONNECT TO nodeapp;
 
 GRANT SYSDBA TO nodeapp;
 
+GRANT UNLIMITED TABLESPACE TO nodeapp;
+
 CONN nodeapp/WelcomeFolks123##;
 
 CREATE TABLE "PRICE" 
