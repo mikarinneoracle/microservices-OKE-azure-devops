@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: httpd
+  name: node-db
   labels:
-    app: httpd
+    app: node-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: httpd
+      app: node-db
   template:
     metadata:
       labels:
-        app: httpd
+        app: node-db
     spec:
       containers:
-      - name: node-test-db
+      - name: db
         image: fra.ocir.io/frsxwtjslf35/azure-test-db:1
         imagePullPolicy: Always
         ports:
@@ -23,7 +23,7 @@ spec:
         env:
         - name: ORACLE_PWD
           value: "WelcomeFolks123##"
-      - name: node-test-app
+      - name: app
         image: fra.ocir.io/frsxwtjslf35/azure-test:1
         imagePullPolicy: Always
         ports:
