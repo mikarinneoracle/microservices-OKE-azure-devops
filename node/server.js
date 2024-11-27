@@ -40,7 +40,8 @@ async function getPrice(tier) {
   try {
     // Get a connection from the default pool
     connection = await oracledb.getConnection();
-    const sql = `SELECT price_mo, users, storage, support FROM SYSTEM.price WHERE tier = :tier`;
+    //const sql = `SELECT price_mo, users, storage, support FROM SYSTEM.price WHERE tier = :tier`;
+    const sql = `SELECT * from tab`;
     const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
     const binds = {tier: tier}; 
     var result = await connection.execute(sql, binds, options);
