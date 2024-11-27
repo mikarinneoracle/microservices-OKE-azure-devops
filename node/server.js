@@ -58,6 +58,31 @@ async function getPrice(tier) {
       }
     }
   }
+}  
+
+async function getOptions(tier) {
+  let connection;
+  try {
+    // Get a connection from the default pool
+    connection = await oracledb.getConnection();
+    const sql = `SELECT ispublic, isprivate, ispermissions, issharing, isunlimited, isextrasec FROM options WHERE tier = :tier`;
+    const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
+    const binds = {tier: tier}; 
+    var result = await connection.execute(sql, binds, options);
+    return result;
+    // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        // Put the connection back in the pool
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
 }
 
 async function closePoolAndExit() {
@@ -83,10 +108,18 @@ app.get('/price/:tier', (req, res) => {
   });
 });
 
+app.get('/options/:tier', (req, res) => {
+  getOptions(req.params['tier']).then((data) => {
+     res.send(data.rows);
+  });
+});
+
 app.listen(port, () => {
   init();
   console.log(`Example app listening on port ${port}`);
 });
+
+app.use(express.static('public'));
 
 process
   .once('SIGTERM', closePoolAndExit)
