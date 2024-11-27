@@ -30,7 +30,6 @@ async function init() {
       // enableStatistics: false // record pool usage for oracledb.getPool().getStatistics() and logStatistics()
     });
     console.log('Connection pool started');
-
   } catch (err) {
     console.error('init() error: ' + err.message);
   }
