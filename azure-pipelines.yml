@@ -35,7 +35,7 @@ steps:
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/node/Dockerfile-node'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-node'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY)'
     tags: $(Build.BuildNumber)
