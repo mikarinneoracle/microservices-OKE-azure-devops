@@ -2,11 +2,15 @@ ALTER SESSION SET "_ORACLE_SCRIPT"=true;
 
 CREATE USER nodeapp IDENTIFIED BY WelcomeFolks123##;
 
-GRANT CONNECT TO nodeapp;
-
 GRANT SYSDBA TO nodeapp;
 
+GRANT CONNECT, RESOURCE, DBA TO nodeapp;
+
+GRANT CREATE SESSION TO nodeapp;
+
 GRANT UNLIMITED TABLESPACE TO nodeapp;
+
+commit;
 
 CONN nodeapp/WelcomeFolks123##;
 
@@ -54,3 +58,4 @@ INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES ('ENTERPRISE'
 
 SELECT tier, price_mo, users, storage, support FROM price;
 
+commit;
