@@ -35,18 +35,16 @@ async function init() {
   }
 }
 
-async function getData() {
+async function getPrice(tier) {
   let connection;
   try {
     // Get a connection from the default pool
     connection = await oracledb.getConnection();
-    // Get a connection from the default pool
-    connection = await oracledb.getConnection();
-    const soda = connection.getSodaDatabase();
-    const collection = await soda.openCollection("price");
-    document = await collection.find().getOne() ;
-    const json = await document.getContent();
-    return json;
+    const sql = `SELECT price_mo, users, storage, support FROM price WHERE tier = :tier`;
+    const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
+    const binds = {tier: tier}; 
+    var result = await connection.execute(sql, binds, options);
+    return result;
     // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
   } catch (err) {
     console.error(err);
@@ -79,10 +77,9 @@ async function closePoolAndExit() {
   }
 }
 
-app.get('/', (req, res) => {
-  getData().then((json) => {
-     console.log(json);
-     res.send(json);
+app.get('/price/:tier', (req, res) => {
+  getPrice(req.params['tier']).then((data) => {
+     res.send(data);
   });
 });
 
