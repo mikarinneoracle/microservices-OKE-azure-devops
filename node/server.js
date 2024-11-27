@@ -35,16 +35,18 @@ async function init() {
   }
 }
 
-async function getDate() {
+async function getData() {
   let connection;
   try {
     // Get a connection from the default pool
     connection = await oracledb.getConnection();
-    const sql = `SELECT CURRENT_DATE FROM dual WHERE :b = 1`;
-    const binds = [1];
-    const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
-    var result = await connection.execute(sql, binds, options);
-    console.log(result);
+    // Get a connection from the default pool
+    connection = await oracledb.getConnection();
+    const soda = connection.getSodaDatabase();
+    const collection = await soda.openCollection("price");
+    document = await collection.find().getOne() ;
+    const json = await document.getContent();
+    return json;
     // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
   } catch (err) {
     console.error(err);
@@ -56,7 +58,6 @@ async function getDate() {
       } catch (err) {
         console.error(err);
       }
-      return result;
     }
   }
 }
@@ -79,9 +80,9 @@ async function closePoolAndExit() {
 }
 
 app.get('/', (req, res) => {
-  getDate().then((date) => {
-     console.log(date);
-     res.send(date);
+  getData().then((json) => {
+     console.log(json);
+     res.send(json);
   });
 });
 
