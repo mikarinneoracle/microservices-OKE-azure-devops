@@ -44,7 +44,7 @@ async function getPrice(tier) {
     const sql = `SELECT * from tab`;
     const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
     const binds = {tier: tier}; 
-    var result = await connection.execute(sql, binds, options);
+    var result = await connection.execute(sql, {}, options);
     return result;
     // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
   } catch (err) {
