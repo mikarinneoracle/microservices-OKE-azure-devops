@@ -15,7 +15,15 @@ spec:
         app: httpd
     spec:
       containers:
-      - name: httpd
+       - name: node-test-db
+        imagePullPolicy: Always
+        image: fra.ocir.io/frsxwtjslf35/azure-test-db-xe:latest
+        ports:
+          - containerPort: 1521
+        env:
+          - name: ORACLE_PWD
+            value: "WelcomeFolks123##"
+      - name: node-test-app
         image: fra.ocir.io/frsxwtjslf35/azure-test:1
         imagePullPolicy: Always
         ports:
