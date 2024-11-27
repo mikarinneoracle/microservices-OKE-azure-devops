@@ -9,7 +9,7 @@ async function init() {
     // Create a connection pool which will later be accessed via the
     // pool cache as the 'default' pool.
     await oracledb.createPool({
-      user: "sys",
+      user: "sysdba",
       password: "WelcomeFolks123##",
       connectString: "//localhost:1521/XE",
       // edition: 'ORA$BASE', // used for Edition Based Redefintion
