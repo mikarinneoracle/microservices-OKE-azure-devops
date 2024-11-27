@@ -19,7 +19,7 @@ var pricing = new Vue({
 })
 
 function getTierPrice(tier, callback) {
-    //console.log(tier);
+    console.log(tier);
     axios
       .get('/price/' + tier)
       .then(resp => 
@@ -45,12 +45,12 @@ function getTierPrice(tier, callback) {
             console.log(error)
         })
      .finally(() => { 
-            //console.log(data);
+            console.log(data);
         })
 }
 
 function getTierOptions(tier, callback) {
-    //console.log(tier);
+    console.log(tier);
     axios
       .get('/options/' + tier)
       .then(resp => 
@@ -76,6 +76,6 @@ function getTierOptions(tier, callback) {
             console.log(error)
         })
      .finally(() => { 
-            //console.log(data);
+            console.log(data);
         })
 }
