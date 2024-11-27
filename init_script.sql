@@ -44,4 +44,4 @@ INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES ('FREE', 0, 1
 INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES ('PRO', 10, 15, 200, 'Priority Email Support');
 INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES ('ENTERPRISE', 200, 100, 50000, 'Phone and Email Support');
 
-SELECT price_mo, users, storage, support FROM price;
+SELECT tier, price_mo, users, storage, support FROM price;
