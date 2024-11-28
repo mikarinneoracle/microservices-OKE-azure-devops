@@ -21,12 +21,8 @@ spec:
         ports:
         - containerPort: 1521
         env:
-          - name: ADMIN_PASSWORD
+          - name: ORACLE_PWD
             value: "WelcomeFolks123##"
-          - name: WALLET_PASSWORD
-            value: "WelcomeFolks123##"
-          - name: WORKLOAD_TYPE
-            value: "ATP"
       - name: app
         image: fra.ocir.io/frsxwtjslf35/azure-test:1
         imagePullPolicy: Always
