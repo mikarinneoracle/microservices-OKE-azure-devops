@@ -114,12 +114,16 @@ app.get('/options/:tier', (req, res) => {
   });
 });
 
+app.get('/app', (req, res) => {
+  res.send("Testing!");
+});
+
 app.listen(port, () => {
   init();
   console.log(`Example app listening on port ${port}`);
 });
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 
 process
   .once('SIGTERM', closePoolAndExit)
