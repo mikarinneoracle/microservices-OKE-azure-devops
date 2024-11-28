@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "main": "index.js",
   "author": "mikarinneoracle",
-  "description": "UI",
+  "description": "Price",
   "dependencies": {
-    "express": "latest"
+    "express": "latest",
+    "oracledb": "^6.7.0"
   }
 }

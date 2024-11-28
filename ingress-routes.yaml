@@ -12,20 +12,20 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: node-clusterip
-              port:
-                number: 8080
-        - path: /options
-          pathType: Prefix
-          backend:
-            service:
-              name: node-clusterip
+              name: ui-clusterip
               port:
                 number: 8080
         - path: /price
           pathType: Prefix
           backend:
             service:
-              name: node-clusterip
+              name: price-clusterip
               port:
-                number: 8080
+                number: 8081
+        - path: /options
+          pathType: Prefix
+          backend:
+            service:
+              name: options-clusterip
+              port:
+                number: 8082

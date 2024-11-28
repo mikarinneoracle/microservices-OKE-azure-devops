@@ -5,7 +5,7 @@ metadata:
   labels:
     app: node-db
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: node-db

@@ -10,7 +10,15 @@ steps:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 - script: |
-    cd node
+    cd ui
+    npm install
+  displayName: 'npm install'
+- script: |
+    cd price
+    npm install
+  displayName: 'npm install'
+- script: |
+    cd options
     npm install
   displayName: 'npm install'
 
@@ -31,13 +39,33 @@ steps:
     tags: $(Build.BuildNumber)
 
 - task: Docker@2
-  displayName: 'Build & Push Node Image $(Build.BuildNumber)'
+  displayName: 'Build & Push UI Image $(Build.BuildNumber)'
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-node'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-ui'
     containerRegistry: '$(CONTAINER_REGISTRY)'
-    repository: '$(CONTAINER_REPOSITORY)'
+    repository: '$(CONTAINER_REPOSITORY_UI)'
+    tags: $(Build.BuildNumber)
+
+- task: Docker@2
+  displayName: 'Build & Push Price Image $(Build.BuildNumber)'
+  inputs:
+    command: buildAndPush
+    buildContext: '$(System.DefaultWorkingDirectory)'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-price'
+    containerRegistry: '$(CONTAINER_REGISTRY)'
+    repository: '$(CONTAINER_REPOSITORY_PRICE)'
+    tags: $(Build.BuildNumber)
+
+- task: Docker@2
+  displayName: 'Build & Push Options Image $(Build.BuildNumber)'
+  inputs:
+    command: buildAndPush
+    buildContext: '$(System.DefaultWorkingDirectory)'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-options'
+    containerRegistry: '$(CONTAINER_REGISTRY)'
+    repository: '$(CONTAINER_REPOSITORY_OPTIONS)'
     tags: $(Build.BuildNumber)
 
 - task: KubernetesManifest@0
@@ -80,5 +108,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: '$(K8S_NAMESPACE)'
     manifests: |
-      $(System.DefaultWorkingDirectory)/node-clusterip.yaml
+      $(System.DefaultWorkingDirectory)/ui-clusterip.yaml
+      $(System.DefaultWorkingDirectory)/price-clusterip.yaml
+      $(System.DefaultWorkingDirectory)/options-clusterip.yaml
       $(System.DefaultWorkingDirectory)/ingress-routes.yaml

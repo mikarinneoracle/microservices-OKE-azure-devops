@@ -1,0 +1,3 @@
+FROM node:16.16.0
+COPY ./options/ .
+CMD [ "node", "server.js" ]
