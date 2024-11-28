@@ -51,7 +51,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
 
 - task: KubernetesManifest@0
-  displayName: 'Deploy To K8s Cluster - test container'
+  displayName: 'Deploy To K8s Cluster -Node app and DB containers'
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
@@ -59,9 +59,17 @@ steps:
     manifests: |
       $(System.DefaultWorkingDirectory)/deployment.yaml
       $(System.DefaultWorkingDirectory)/svc.yaml
-      $(System.DefaultWorkingDirectory)/nginx-ingress.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
       $(containerImageFullNameForK8sDeploy):$(Build.BuildNumber)
       $(containerDBImageFullNameForK8sDeploy):$(Build.BuildNumber)
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy Ingress'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: '$(K8S_NAMESPACE_INGRESS)'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/nginx-ingress.yaml
