@@ -6,7 +6,6 @@ const port = 8080;
 app.use("/app", express.static('public'));
 
 app.listen(port, () => {
-  init();
-  console.log(`Node app listening on port ${port}`);
+  console.log(`Node ui listening on port ${port}`);
 });
 
