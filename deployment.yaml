@@ -28,15 +28,15 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-      - name: ui
+      - name: price
         image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
-      - name: ui
+        - containerPort: 8081
+      - name: options
         image: fra.ocir.io/frsxwtjslf35/azure-test-options:1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 8082
       imagePullSecrets:
       - name: fraocirsecret
