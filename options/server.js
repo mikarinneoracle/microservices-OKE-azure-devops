@@ -2,7 +2,7 @@ const express = require('express');
 const oracledb = require('oracledb');
 
 const app = express();
-const port = 8080;
+const port = 8082;
 
 async function init() {
   try {
