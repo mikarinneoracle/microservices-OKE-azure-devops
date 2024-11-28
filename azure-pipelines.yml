@@ -59,6 +59,7 @@ steps:
     manifests: |
       $(System.DefaultWorkingDirectory)/deployment.yaml
       $(System.DefaultWorkingDirectory)/svc.yaml
+      $(System.DefaultWorkingDirectory)/nginx-ingress.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
