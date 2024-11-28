@@ -58,7 +58,6 @@ steps:
     namespace: '$(K8S_NAMESPACE)'
     manifests: |
       $(System.DefaultWorkingDirectory)/deployment.yaml
-      $(System.DefaultWorkingDirectory)/svc.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
@@ -73,3 +72,13 @@ steps:
     namespace: '$(K8S_NAMESPACE_INGRESS)'
     manifests: |
       $(System.DefaultWorkingDirectory)/nginx-ingress.yaml
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy Ingress Routes to Node app'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: '$(K8S_NAMESPACE)'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/node-clusterip.yaml
+      $(System.DefaultWorkingDirectory)/ingress-routes.yaml

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: springboot
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /node
+          pathType: Prefix
+          backend:
+            service:
+              name: node-clusterip
+              port:
+                number: 8080
