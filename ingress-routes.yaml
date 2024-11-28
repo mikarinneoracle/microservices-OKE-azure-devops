@@ -8,7 +8,21 @@ spec:
   rules:
   - http:
       paths:
-        - path: /
+        - path: /app
+          pathType: Prefix
+          backend:
+            service:
+              name: node-clusterip
+              port:
+                number: 8080
+        - path: /options
+          pathType: Prefix
+          backend:
+            service:
+              name: node-clusterip
+              port:
+                number: 8080
+        - path: /price
           pathType: Prefix
           backend:
             service:
