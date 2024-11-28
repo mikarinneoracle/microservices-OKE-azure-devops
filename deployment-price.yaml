@@ -27,6 +27,6 @@ spec:
         image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8081
+        - containerPort: 8080
       imagePullSecrets:
       - name: fraocirsecret

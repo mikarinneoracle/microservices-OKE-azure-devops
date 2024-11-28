@@ -7,5 +7,5 @@ spec:
     app: node-app-options-svc
   ports:
     - port: 8082
-      targetPort: 8082
+      targetPort: 8080
   type: ClusterIP
