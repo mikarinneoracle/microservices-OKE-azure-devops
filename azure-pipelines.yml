@@ -12,15 +12,15 @@ steps:
 - script: |
     cd ui
     npm install
-  displayName: 'npm install'
+  displayName: 'npm install ui'
 - script: |
     cd price
     npm install
-  displayName: 'npm install'
+  displayName: 'npm install price svc'
 - script: |
     cd options
     npm install
-  displayName: 'npm install'
+  displayName: 'npm install options svc'
 
 - task: Docker@2
   displayName: 'Login to OCIR'
@@ -89,8 +89,10 @@ steps:
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
-      $(containerImageFullNameForK8sDeploy):$(Build.BuildNumber)
       $(containerDBImageFullNameForK8sDeploy):$(Build.BuildNumber)
+      $(containerUiImageFullNameForK8sDeploy):$(Build.BuildNumber)
+      $(containerPriceImageFullNameForK8sDeploy):$(Build.BuildNumber)
+      $(containerOptionsImageFullNameForK8sDeploy):$(Build.BuildNumber)
 
 - task: KubernetesManifest@0
   displayName: 'Deploy Ingress'
