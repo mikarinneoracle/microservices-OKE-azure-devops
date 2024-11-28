@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-price-svc
+  labels:
+    app: node-app-price-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app-price-svc
+  template:
+    metadata:
+      labels:
+        app: node-app-price-svc
+    spec:
+      containers:
+      - name: db
+        image: fra.ocir.io/frsxwtjslf35/azure-test-db:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 1521
+        env:
+          - name: ORACLE_PWD
+            value: "WelcomeFolks123##"
+      - name: price
+        image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+      imagePullSecrets:
+      - name: fraocirsecret

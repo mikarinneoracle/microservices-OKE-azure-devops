@@ -4,7 +4,7 @@ metadata:
   name: ui-clusterip
 spec:
   selector:
-    app: node-db
+    app: node-app-ui
   ports:
     - port: 8080
       targetPort: 8080

@@ -4,7 +4,7 @@ metadata:
   name: options-clusterip
 spec:
   selector:
-    app: node-db
+    app: node-app-options-svc
   ports:
     - port: 8082
       targetPort: 8082

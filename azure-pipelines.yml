@@ -85,7 +85,9 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: '$(K8S_NAMESPACE)'
     manifests: |
-      $(System.DefaultWorkingDirectory)/deployment.yaml
+      $(System.DefaultWorkingDirectory)/deployment-ui.yaml
+      $(System.DefaultWorkingDirectory)/deployment-price.yaml
+      $(System.DefaultWorkingDirectory)/deployment-options.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |

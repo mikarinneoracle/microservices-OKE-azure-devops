@@ -4,7 +4,7 @@ metadata:
   name: price-clusterip
 spec:
   selector:
-    app: node-db
+    app: node-app-price-svc
   ports:
     - port: 8081
       targetPort: 8081

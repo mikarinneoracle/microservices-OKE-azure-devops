@@ -1,42 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-db
+  name: node-app-ui
   labels:
-    app: node-db
+    app: node-app-ui
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: node-db
+      app: node-app-ui
   template:
     metadata:
       labels:
-        app: node-db
+        app: node-app-ui
     spec:
       containers:
-      - name: db
-        image: fra.ocir.io/frsxwtjslf35/azure-test-db:1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 1521
-        env:
-          - name: ORACLE_PWD
-            value: "WelcomeFolks123##"
       - name: ui
         image: fra.ocir.io/frsxwtjslf35/azure-test-ui:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-      - name: price
-        image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8081
-      - name: options
-        image: fra.ocir.io/frsxwtjslf35/azure-test-options:1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8082
       imagePullSecrets:
       - name: fraocirsecret
