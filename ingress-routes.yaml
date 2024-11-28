@@ -21,11 +21,11 @@ spec:
             service:
               name: price-clusterip
               port:
-                number: 8081
+                number: 8080
         - path: /options
           pathType: Prefix
           backend:
             service:
               name: options-clusterip
               port:
-                number: 8082
+                number: 8080
