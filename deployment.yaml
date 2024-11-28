@@ -23,8 +23,18 @@ spec:
         env:
           - name: ORACLE_PWD
             value: "WelcomeFolks123##"
-      - name: app
-        image: fra.ocir.io/frsxwtjslf35/azure-test:1
+      - name: ui
+        image: fra.ocir.io/frsxwtjslf35/azure-test-ui:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      - name: ui
+        image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      - name: ui
+        image: fra.ocir.io/frsxwtjslf35/azure-test-options:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
