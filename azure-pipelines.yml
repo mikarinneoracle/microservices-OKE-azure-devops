@@ -78,7 +78,7 @@ steps:
     dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
 
-- task: replacetokens@5
+- task: Replacetokens@5
   inputs:
     rootDirectory: $(System.DefaultWorkingDirectory)
     targetFiles: 'deployment-adb.yaml'
