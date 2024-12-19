@@ -76,14 +76,29 @@ steps:
       ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
 
 - task: KubernetesManifest@0
-  displayName: 'Deploy ADB'
+  displayName: 'Deploy cert manager'
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
       https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
-      $(System.DefaultWorkingDirectory)/secrets-adb.yaml
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy ADB operator'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: 'oracle-database-operator-system'
+    manifests: |
       $(System.DefaultWorkingDirectory)/operator-adb.yaml
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy ADB'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/secrets-adb.yaml
       $(System.DefaultWorkingDirectory)/deployment-adb.yaml
 
 - task: KubernetesManifest@0
@@ -92,7 +107,6 @@ steps:
     action: 'createSecret'
     secretType: 'dockerRegistry'
     secretName: '$(OcirPullSecret)'
-    namespace: '$(K8S_NAMESPACE)'
     dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
 
@@ -101,7 +115,6 @@ steps:
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: '$(K8S_NAMESPACE)'
     manifests: |
       $(System.DefaultWorkingDirectory)/deployment-ui.yaml
       $(System.DefaultWorkingDirectory)/deployment-price.yaml
@@ -119,7 +132,7 @@ steps:
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: '$(K8S_NAMESPACE_INGRESS)'
+    namespace: 'ingress-nginx'
     manifests: |
       $(System.DefaultWorkingDirectory)/nginx-ingress.yaml
 
@@ -128,7 +141,6 @@ steps:
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: '$(K8S_NAMESPACE)'
     manifests: |
       $(System.DefaultWorkingDirectory)/ui-clusterip.yaml
       $(System.DefaultWorkingDirectory)/price-clusterip.yaml
