@@ -87,6 +87,7 @@ steps:
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: 'cert-manager'
     manifests: |
       $(System.DefaultWorkingDirectory)/cert-manager.yaml
 
