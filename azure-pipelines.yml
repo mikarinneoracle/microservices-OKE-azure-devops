@@ -75,7 +75,7 @@ steps:
     script: |
       ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
 
-task: PowerShell@2
+- task: PowerShell@2
   displayName: 'Get cert manager yaml'
   inputs:
     targetType: 'inline'
