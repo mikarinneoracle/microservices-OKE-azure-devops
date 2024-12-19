@@ -80,7 +80,6 @@ steps:
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: '$(K8S_NAMESPACE_INGRESS)'
     manifests: |
       https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
       $(System.DefaultWorkingDirectory)/secrets-adb.yaml
