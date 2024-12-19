@@ -80,7 +80,6 @@ steps:
 
 - task: replacetokens@5
       inputs:
-        rootDirectory: $(System.DefaultWorkingDirectory)
         targetFiles: 'deployment-adb.yaml'
         encoding: 'auto'
         tokenPattern: 'default'
