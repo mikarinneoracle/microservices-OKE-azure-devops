@@ -79,18 +79,19 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
 
 - task: replacetokens@5
-      inputs:
-        targetFiles: 'deployment-adb.yaml'
-        encoding: 'auto'
-        tokenPattern: 'default'
-        writeBOM: true
-        actionOnMissing: 'warn'
-        keepToken: false
-        actionOnNoFiles: 'continue'
-        enableTransforms: false
-        enableRecursion: false
-        useLegacyPattern: false
-        enableTelemetry: true
+  inputs:
+    rootDirectory: $(System.DefaultWorkingDirectory)
+    targetFiles: 'deployment-adb.yaml'
+    encoding: 'auto'
+    tokenPattern: 'default'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    actionOnNoFiles: 'continue'
+    enableTransforms: false
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
 
 - task: KubernetesManifest@0
   displayName: 'Deploy ADB'
