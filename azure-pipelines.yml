@@ -75,13 +75,20 @@ steps:
     script: |
       ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
 
+task: PowerShell@2
+  displayName: 'Get cert manager yaml'
+  inputs:
+    targetType: 'inline'
+    script: |
+      wget https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml -O $(System.DefaultWorkingDirectory)/cert-manager.yaml
+
 - task: KubernetesManifest@0
   displayName: 'Deploy cert manager'
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
-      https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy ADB operator'
