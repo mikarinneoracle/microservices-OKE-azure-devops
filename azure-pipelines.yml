@@ -5,6 +5,39 @@ pool:
   name: default
 
 steps:
+
+- task: PowerShell@2
+  displayName: 'Deploy cert manager with kubectl'
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
+      
+- task: PowerShell@2
+  displayName: 'Setup ADB yaml'
+  inputs:
+    targetType: 'inline'
+    script: |
+      ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy ADB operator'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: 'oracle-database-operator-system'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/operator-adb.yaml
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy ADB'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/secrets-adb.yaml
+      $(System.DefaultWorkingDirectory)/deployment-adb.yaml
+
 - task: NodeTool@0
   inputs:
     versionSpec: '20.x'
@@ -67,38 +100,6 @@ steps:
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY_OPTIONS)'
     tags: $(Build.BuildNumber)
-
-- task: PowerShell@2
-  displayName: 'Deploy cert manager with kubectl'
-  inputs:
-    targetType: 'inline'
-    script: |
-      kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
-      
-- task: PowerShell@2
-  displayName: 'Setup ADB yaml'
-  inputs:
-    targetType: 'inline'
-    script: |
-      ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
-
-- task: KubernetesManifest@0
-  displayName: 'Deploy ADB operator'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: 'oracle-database-operator-system'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/operator-adb.yaml
-
-- task: KubernetesManifest@0
-  displayName: 'Deploy ADB'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/secrets-adb.yaml
-      $(System.DefaultWorkingDirectory)/deployment-adb.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Setup secret'
