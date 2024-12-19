@@ -11,7 +11,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
+      /usr/local/bin/kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
       
 - task: PowerShell@2
   displayName: 'Setup ADB yaml'
