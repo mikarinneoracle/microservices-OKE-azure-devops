@@ -68,6 +68,25 @@ steps:
     repository: '$(CONTAINER_REPOSITORY_OPTIONS)'
     tags: $(Build.BuildNumber)
 
+- task: PowerShell@2
+  displayName: 'Setup ADB yaml'
+  inputs:
+    targetType: 'inline'
+    script: |
+      ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy ADB'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: '$(K8S_NAMESPACE_INGRESS)'
+    manifests: |
+      https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
+      $(System.DefaultWorkingDirectory)/secrets-adb.yaml
+      $(System.DefaultWorkingDirectory)/operator-adb.yaml
+      $(System.DefaultWorkingDirectory)/deployment-adb.yaml
+
 - task: KubernetesManifest@0
   displayName: 'Setup secret'
   inputs: 
@@ -77,21 +96,6 @@ steps:
     namespace: '$(K8S_NAMESPACE)'
     dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
-- task: KubernetesManifest@0
-  displayName: 'Deploy ADB'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: '$(K8S_NAMESPACE_INGRESS)'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/secrets-adb.yaml
-      $(System.DefaultWorkingDirectory)/deployment-adb.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy To K8s Cluster -Node app and DB containers'
