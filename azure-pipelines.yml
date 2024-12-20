@@ -56,8 +56,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
-      cat deployment-adb.yaml
+      ((Get-Content -path deployment-adb.yaml -Raw) -replace '$COMPARTMENT', '$(COMPARTMENT)')
 
 - task: KubernetesManifest@0
   displayName: 'Deploy ADB operator'
