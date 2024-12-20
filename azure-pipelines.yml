@@ -13,25 +13,25 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'cert-manager'
     manifests: |
-      $(System.DefaultWorkingDirectory)/operator-adb.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager-1.yaml
 
 - task: KubernetesManifest@0
-  displayName: ''Deploy Cert Manager 2/3'
+  displayName: 'Deploy Cert Manager 2/3'
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'kube-system'
     manifests: |
-      $(System.DefaultWorkingDirectory)/operator-adb.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager-2.yaml
 
 - task: KubernetesManifest@0
-  displayName: ''Deploy Cert Manager 3/3'
+  displayName: 'Deploy Cert Manager 3/3'
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'cert-manager'
     manifests: |
-      $(System.DefaultWorkingDirectory)/operator-adb.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager-3.yaml
       
 - task: PowerShell@2
   displayName: 'Setup ADB yaml'
