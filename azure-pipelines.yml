@@ -7,7 +7,7 @@ pool:
 steps:
 
 - task: KubernetesManifest@0
-  displayName: 'Deploy Cert Manager 1/3'
+  displayName: 'Deploy Cert Manager 1/5'
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
@@ -16,7 +16,7 @@ steps:
       $(System.DefaultWorkingDirectory)/cert-manager-1.yaml
 
 - task: KubernetesManifest@0
-  displayName: 'Deploy Cert Manager 2/3'
+  displayName: 'Deploy Cert Manager 2/5'
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
@@ -25,14 +25,32 @@ steps:
       $(System.DefaultWorkingDirectory)/cert-manager-2.yaml
 
 - task: KubernetesManifest@0
-  displayName: 'Deploy Cert Manager 3/3'
+  displayName: 'Deploy Cert Manager 3/5'
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'cert-manager'
     manifests: |
-      $(System.DefaultWorkingDirectory)/cert-manager-3.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager-4.yaml
       
+- task: KubernetesManifest@0
+  displayName: 'Deploy Cert Manager 4/5'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: 'kube-system'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/cert-manager-2.yaml
+
+- task: KubernetesManifest@0
+  displayName: 'Deploy Cert Manager 5/5'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: 'cert-manager'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/cert-manager-5.yaml
+
 - task: PowerShell@2
   displayName: 'Setup ADB yaml'
   inputs:
