@@ -51,6 +51,15 @@ steps:
     manifests: |
       $(System.DefaultWorkingDirectory)/cert-manager-5.yaml
 
+- task: KubernetesManifest@0
+  displayName: 'Deploy ADB cluster role binding'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    namespace: 'oracle-database-operator-system'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/ADB-cluster-role-binding.yaml
+
 - task: PowerShell@2
   displayName: 'Setup ADB yaml'
   inputs:
