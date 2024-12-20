@@ -74,7 +74,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'oracle-database-operator-system'
     manifests: |
-      $(System.DefaultWorkingDirectory)/operator-adb.yaml
+      $(System.DefaultWorkingDirectory)/ADB-operator.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy ADB'
