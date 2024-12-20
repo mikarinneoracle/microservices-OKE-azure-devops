@@ -20,6 +20,6 @@ spec:
       password:
         k8sSecret:
           name: instance-wallet-password
-    dataStorageSizeInTBs: 0.2
+    dataStorageSizeInTBs: 1
     networkAccess:
        accessType: PUBLIC
