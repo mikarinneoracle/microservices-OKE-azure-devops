@@ -54,7 +54,7 @@ async function run() {
     binds = [
       ['FREE', 0, 1, 10, 'Email'],
       ['PRO', 10, 15, 200, 'Priority Email'],
-      ['ENTERPRISE', 500, 1000, 50000, 'Phone and Email']
+      ['ENTERPRISE', 150, 1000, 50000, 'Phone and Email']
     ];
 
     // For a complete list of options see the documentation.
