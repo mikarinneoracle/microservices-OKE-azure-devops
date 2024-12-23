@@ -5,7 +5,6 @@
   "author": "mikarinneoracle",
   "description": "ADB create table job",
   "dependencies": {
-    "express": "latest",
     "oracledb": "^6.7.0"
   }
 }
