@@ -188,12 +188,14 @@ steps:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
+      $(System.DefaultWorkingDirectory)/deployment-adb-job.yaml
       $(System.DefaultWorkingDirectory)/deployment-ui.yaml
       $(System.DefaultWorkingDirectory)/deployment-price.yaml
       $(System.DefaultWorkingDirectory)/deployment-options.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
+      $(containerADBJobImageFullNameForK8sDeploy):$(Build.BuildNumber)
       $(containerDBImageFullNameForK8sDeploy):$(Build.BuildNumber)
       $(containerUiImageFullNameForK8sDeploy):$(Build.BuildNumber)
       $(containerPriceImageFullNameForK8sDeploy):$(Build.BuildNumber)
