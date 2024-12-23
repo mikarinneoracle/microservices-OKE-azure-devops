@@ -6,13 +6,16 @@ const port = 8080;
 
 oracledb.initOracleClient({ libDir: '/instantclient_23_3', configDir: '/instantclient_23_3/network/admin/' });
 
+const password = process.env.ATP_PWD;
+console.log("atp password:" + password);
+
 async function init() {
   try {
     // Create a connection pool which will later be accessed via the
     // pool cache as the 'default' pool.
     await oracledb.createPool({
-      user: "nodeapp",
-      password: "WelcomeFolks123##",
+      user: "admin",
+      password: password,
       connectString: "atp_tp",
       // edition: 'ORA$BASE', // used for Edition Based Redefintion
       // events: false, // whether to handle Oracle Database FAN and RLB events or support CQN
