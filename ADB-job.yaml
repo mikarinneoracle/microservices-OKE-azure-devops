@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+      - name: adb-job
+        image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
+        imagePullPolicy: Always
+        volumeMounts:
+            - name: secret-volume
+              mountPath: /instantclient_23_3/network/admin
+        env:
+          - name: ATP_PWD
+            valueFrom:
+              secretKeyRef:
+                name: admin-password
+                key: admin-password
+      restartPolicy: Never
+      backoffLimit: 4
+      imagePullSecrets:
+      - name: fraocirsecret
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: instance-wallet
