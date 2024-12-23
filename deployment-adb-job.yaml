@@ -19,10 +19,10 @@ spec:
                 name: admin-password
                 key: admin-password
       restartPolicy: Never
-      backoffLimit: 4
       imagePullSecrets:
       - name: fraocirsecret
       volumes:
         - name: secret-volume
           secret:
             secretName: instance-wallet
+  backoffLimit: 4
