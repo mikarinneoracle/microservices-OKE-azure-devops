@@ -6,9 +6,9 @@ async function run() {
   let connection;
 
   const config = {
-    user: 'admin',
+    user: "admin",
     password: process.env.ATP_PWD,
-    externalAuth: false
+    connectString: "atp_tp"
   };
 
   console.log("atp password:" + config.password);
