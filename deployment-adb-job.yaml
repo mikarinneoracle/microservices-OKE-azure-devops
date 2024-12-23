@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: adb-job
+  name: ADB_JOB_NAME
 spec:
   template:
     spec:
       containers:
-      - name: adb-job
+      - name: ADB_JOB_NAME
         image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
         imagePullPolicy: Always
         volumeMounts:

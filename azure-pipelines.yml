@@ -173,6 +173,13 @@ steps:
     repository: '$(CONTAINER_REPOSITORY_OPTIONS)'
     tags: $(Build.BuildNumber)
 
+- task: PowerShell@2
+  displayName: 'Setup ADB job yaml'
+  inputs:
+    targetType: 'inline'
+    script: |
+      ((Get-Content -path deployment-adb-job.yaml -Raw) -replace 'ADB_JOB_NAME', 'adb-job-$(Build.BuildNumber)') | Set-Content -Path deployment-adb-job.yaml
+
 - task: KubernetesManifest@0
   displayName: 'Setup secret'
   inputs: 
