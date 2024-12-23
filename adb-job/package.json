@@ -1,0 +1,11 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "main": "init.js",
+  "author": "mikarinneoracle",
+  "description": "ADB create table job",
+  "dependencies": {
+    "express": "latest",
+    "oracledb": "^6.7.0"
+  }
+}
