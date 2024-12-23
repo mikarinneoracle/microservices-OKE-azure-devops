@@ -50,7 +50,7 @@ async function run() {
       }
     }
 
-    sql = `INSERT INTO no_example VALUES (:1, :2, :3, :4, :5)`;
+    sql = `INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES (:1, :2, :3, :4, :5)`;
     binds = [
       ['FREE', 0, 1, 10, 'Email'],
       ['PRO', 10, 15, 200, 'Priority Email'],
