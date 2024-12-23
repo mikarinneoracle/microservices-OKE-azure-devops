@@ -14,19 +14,23 @@ spec:
       labels:
         app: node-app-price-svc
     spec:
-      containers:
-      - name: db
-        image: fra.ocir.io/frsxwtjslf35/azure-test-db:1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 1521
-        env:
-          - name: ORACLE_PWD
-            value: "WelcomeFolks123##"
       - name: price
         image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        volumeMounts:
+            - name: secret-volume
+              mountPath: /instantclient_23_3/network/admin
+        env:
+          - name: ATP_PWD
+            valueFrom:
+              secretKeyRef:
+                name: admin-password
+                key: admin-password
       imagePullSecrets:
       - name: fraocirsecret
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: instance-wallet

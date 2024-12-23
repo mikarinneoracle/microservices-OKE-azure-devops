@@ -4,6 +4,8 @@ const oracledb = require('oracledb');
 const app = express();
 const port = 8080;
 
+oracledb.initOracleClient({ libDir: '/instantclient_23_3', configDir: '/instantclient_23_3/network/admin/' });
+
 async function init() {
   try {
     // Create a connection pool which will later be accessed via the
@@ -11,7 +13,7 @@ async function init() {
     await oracledb.createPool({
       user: "nodeapp",
       password: "WelcomeFolks123##",
-      connectString: "localhost/XE",
+      connectString: "atp_tp",
       // edition: 'ORA$BASE', // used for Edition Based Redefintion
       // events: false, // whether to handle Oracle Database FAN and RLB events or support CQN
       // externalAuth: false, // whether connections should be established using External Authentication

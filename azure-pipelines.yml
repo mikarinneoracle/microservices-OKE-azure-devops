@@ -85,6 +85,13 @@ steps:
       $(System.DefaultWorkingDirectory)/secrets-adb.yaml
       $(System.DefaultWorkingDirectory)/deployment-adb.yaml
 
+- task: PowerShell@2
+  displayName: 'Download Oracle instaclient'
+  inputs:
+    targetType: 'inline'
+    script: |
+      wget https://download.oracle.com/otn_software/linux/instantclient/23c/instantclient-basic-linux.x64-23.3.0.0.0.zip
+
 - task: NodeTool@0
   inputs:
     versionSpec: '20.x'
