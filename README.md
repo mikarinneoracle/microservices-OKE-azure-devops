@@ -1,20 +1,21 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Build and deploy a microservices NodeJS application to OKE with Azure DevOps
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+This example builds and deploys a microservices application consisting of the following NodeJS microservices:
+<p>
+- <code>UI</code> single page web app with Bootstrap html and CSS and VueJS scripting under /ui
+- <code>Price</code> with Autonomous Database access for the Price table and data under /price
+- <code>Options</code> with XE sidecar database container for the Options table and data under /options
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+<p>
+Build and deploy will also:
+- Install Oracle <code>Database Operator for Kubernetes</code> to create an ADB instance for the Price database and to get access for it using the database wallet (mutual TLS) in the Price microservice
+- Create <code>Oracle XE database container</code> for the Options database to be run as a sidecar for the Options microservice
+- Create <code>nginx-ingress</code> to access the application from Internet
+<p>
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Application looks like this:
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+<img src="ui.jpg" width="1200" />
+
+
+
