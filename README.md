@@ -22,7 +22,7 @@ In addition:
 <li>Azure Devops can run on a <code>self-hosted agent</code> on OCI deployed with OCI Resource Manager (terraform) from this repo: https://github.com/mikarinneoracle/Azure-DevOps-Agent-OCI-setup</li>
 <li>Oracle Kubernetes Engine (OKE) cluster to host the application is created with <code>Azure Devops Terraform extension</code> from this repo: https://github.com/alcampag/oci-cn-quickstart</li>
 <li>Example to how to setup the Azure Devosp Terraform extension is here: https://medium.com/@mika.rinne/azure-devops-terraform-extension-just-got-support-for-oci-cc931ca070ce</li>
-<li>An <code>instance-principal OCI Policy</code> is needed for OKE to be manage the ADB resources that is created manually (at the moment not part of the Terraform above)</li>
+<li>An <code>instance-principal OCI Policy</code> is needed for OKE to be manage the ADB resources and the wallet secret volume (created by the database operator) that is created manually (at the moment not part of the Terraform above)</li>
 <li>Azure DevOps service connections for OKE and OCI Container Registry are created manually using this example repo: https://github.com/oracle-devrel/technology-engineering/tree/main/app-dev/devops-and-containers/devops/azure-devops-oke</li>
 </ul>
 
