@@ -18,7 +18,7 @@ Build and deploy will also:
 <p>
 Application looks like this:
 <p>
-<img src="ui.jpg" width="1200" />
+<img src="ui.jpg" width="600" />
 
 
 
