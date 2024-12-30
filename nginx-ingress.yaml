@@ -347,8 +347,8 @@ metadata:
     service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
     service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "500"
     service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "1000"
-    service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "none"
-    oci.oraclecloud.com/security-rule-management-mode: "none"
+    service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
+    oci.oraclecloud.com/security-rule-management-mode: "None"
   name: ingress-nginx-controller
   namespace: ingress-nginx
 spec:
