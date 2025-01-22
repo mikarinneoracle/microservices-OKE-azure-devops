@@ -29,7 +29,7 @@ I made a few changes to the repo to run it on the self-hosted agent either with 
 </li>
 <li>In the <a href="https://github.com/mikarinneoracle/terraform-OKE-azure-devops/blob/main/azure-pipelines.yml#L24">azure-pipelines.yaml</a> pass the your TENANCY and COMPARTMENT vars to the terraform command on the script and then configure these values as secrets to the pipeline variables.
 <p>
-Also, add the Terraform statefile PAR as a variable to the pipeline variables as it is used <a href="https://github.com/mikarinneoracle/terraform-OKE-azure-devops/blob/main/azure-pipelines.yml#L18">in the pipeline script</a> to configure the remote statifile for the Terraform to run with sed.
+Also, add the Terraform statefile PAR to the pipeline variables as it is used <a href="https://github.com/mikarinneoracle/terraform-OKE-azure-devops/blob/main/azure-pipelines.yml#L18">in the pipeline script</a> to configure the remote statifile for the Terraform to run with sed.
 </li>
 </ol>
 
