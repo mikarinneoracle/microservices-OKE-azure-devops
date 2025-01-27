@@ -1,4 +1,0 @@
-FROM container-registry.oracle.com/database/express:21.3.0-xe 
-EXPOSE 1521
-
-COPY init_script.sql /opt/oracle/scripts/startup
