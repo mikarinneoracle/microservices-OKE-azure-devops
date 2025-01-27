@@ -44,6 +44,8 @@ async function create_db()
 {
   let connection, sql, binds, options, result;
   try {
+    console.log('Creating database schema and data ..');
+
     connection = await oracledb.getConnection();
     const stmts = [
       `DROP TABLE PRICE`,
@@ -145,7 +147,7 @@ async function create_db()
     console.log(err);
   } finally {
     if (connection) {
-      console.log("Create DB done");
+      console.log("console.log('Creating database schema and data done.");
       create_db_done = true;
       try {
         await connection.close();
