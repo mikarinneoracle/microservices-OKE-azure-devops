@@ -79,7 +79,7 @@ async function run() {
     ];
     options = {
       autoCommit: true,
-      // batchErrors: true,  // continue processing even if there are data errors
+      batchErrors: true,  // continue processing even if there are data errors
       bindDefs: [
         { type: oracledb.STRING, maxSize: 200 },
         { type: oracledb.NUMBER },
@@ -99,7 +99,7 @@ async function run() {
     ];
     options = {
       autoCommit: true,
-      // batchErrors: true,  // continue processing even if there are data errors
+      batchErrors: true,  // continue processing even if there are data errors
       bindDefs: [
         { type: oracledb.STRING, maxSize: 200 },
         { type: oracledb.STRING, maxSize: 2 },
