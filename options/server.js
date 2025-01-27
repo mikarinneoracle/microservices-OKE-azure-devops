@@ -9,6 +9,7 @@ console.log("atp password:" + password);
 
 async function init() {
   try {
+    await create_db();
     // Create a connection pool which will later be accessed via the
     // pool cache as the 'default' pool.
     await oracledb.createPool({
@@ -213,8 +214,6 @@ app.get('/options/:tier', (req, res) => {
     }
   });
 });
-
-create_db();
 
 app.listen(port, () => {
   init();
