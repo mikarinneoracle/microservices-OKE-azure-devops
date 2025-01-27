@@ -165,10 +165,9 @@ async function getOptions(tier) {
   let connection;
   if(create_db_status == DB_CREATE_NOT_DONE)
   {
-    console.log('Starting to create database schema and data ..');
     await create_db();
-    console.log('Starting to create database schema and data done.');
-  } else if(create_db_status == DB_CREATE_DONE)
+  }
+  if(create_db_status == DB_CREATE_DONE)
   {
     try {
       // Get a connection from the default pool
