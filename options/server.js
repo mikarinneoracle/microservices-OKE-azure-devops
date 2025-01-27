@@ -4,6 +4,9 @@ const oracledb = require('oracledb');
 const app = express();
 const port = 8080;
 
+const password = process.env.ATP_PWD;
+console.log("atp password:" + password);
+
 async function init() {
   try {
     // Create a connection pool which will later be accessed via the

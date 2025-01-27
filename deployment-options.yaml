@@ -38,5 +38,8 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        env:
+          - name: ATP_PWD
+            value: "WelcomeFolks123##"
       imagePullSecrets:
       - name: fraocirsecret
