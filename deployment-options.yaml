@@ -33,7 +33,7 @@ spec:
             value: "SYS_ADMIN"
           - name: device
             value: "/dev/fuse"
-      - name: options
+      - name: app
         image: fra.ocir.io/frsxwtjslf35/azure-test-options:1
         imagePullPolicy: Always
         ports:

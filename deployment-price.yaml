@@ -15,7 +15,7 @@ spec:
         app: node-app-price-svc
     spec:
       containers:
-      - name: price
+      - name: app
         image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
         imagePullPolicy: Always
         ports:
