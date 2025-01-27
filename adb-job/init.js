@@ -8,7 +8,7 @@ async function run() {
   const config = {
     user: "admin",
     password: process.env.ATP_PWD,
-    connectString: process.env.CONNECT_STRING,
+    connectString: "atp_tp"
   };
 
   console.log("atp password:" + config.password);
