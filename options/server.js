@@ -213,7 +213,7 @@ app.get('/options/:tier', (req, res) => {
   });
 });
 
-await create_db();
+create_db();
 
 app.listen(port, () => {
   init();
