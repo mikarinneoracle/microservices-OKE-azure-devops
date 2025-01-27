@@ -164,7 +164,7 @@ async function create_db()
 
 async function getOptions(tier) {
   let connection;
-  if(create_db_status == DB_CREATE_NOT_DONE)
+  if(create_db_status == DB_CREATE_NOT_DONE && !create_db_status == DB_IN_CREATION)
   {
     await create_db();
   }
