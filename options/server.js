@@ -8,6 +8,7 @@ const password = process.env.ATP_PWD;
 console.log('atp password:' + password);
 
 let db_created = false; 
+let db_in_creation = false;
 
 async function init() {
   try {
@@ -42,6 +43,7 @@ async function init() {
 
 async function create_db()
 {
+  db_in_creation = true;
   let connection, sql, binds, options, result;
   try {
     connection = await oracledb.getConnection();
@@ -142,6 +144,7 @@ async function create_db()
   } catch (err) {
     //console.log(err);
   } finally {
+    db_in_creation = false;
     if (connection) {
       try {
         await connection.close();
@@ -155,7 +158,7 @@ async function create_db()
 async function getOptions(tier) {
   let connection;
   try {
-    if(!db_created) { 
+    if(!db_created && !db_in_creation) { 
       await create_db();
     }
     // Get a connection from the default pool
