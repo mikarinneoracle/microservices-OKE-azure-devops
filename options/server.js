@@ -7,7 +7,12 @@ const port = 8080;
 const password = process.env.ATP_PWD;
 console.log('atp password:' + password);
 
-let create_db_done = false;
+let DB_CREATE_NOT_DONE = 0;
+let DB_IN_CREATION = 1;
+let DB_CREATE_DONE = 2;
+
+let create_db_status = DB_CREATE_NOT_DONE;
+
 
 async function init() {
   try {
@@ -42,6 +47,7 @@ async function init() {
 
 async function create_db()
 {
+  create_db_status = DB_IN_CREATION;
   let connection, sql, binds, options, result;
   try {
     console.log('Creating database schema and data ..');
@@ -139,13 +145,13 @@ async function create_db()
     };
     result = await connection.executeMany(sql, binds, options);
     console.log('Number of rows inserted OPTIONS table:', result.rowsAffected);
-
+    create_db_status = DB_CREATE_DONE;
   } catch (err) {
     console.log(err);
+    create_db_status = DB_CREATE_NOT_DONE;
   } finally {
     if (connection) {
       console.log('Creating database schema and data done.');
-      create_db_done = true;
       try {
         await connection.close();
       } catch (err) {
@@ -157,32 +163,36 @@ async function create_db()
 
 async function getOptions(tier) {
   let connection;
-  try {
-    if(!create_db_done)
-    {
-      console.log('Starting to create database schema and data ..');
-      await create_db();
-      console.log('Starting to create database schema and data done.');
-    }
-    // Get a connection from the default pool
-    connection = await oracledb.getConnection();
-    const sql = `SELECT ispublic, isprivate, ispermissions, issharing, isunlimited, isextrasec FROM options WHERE tier = :tier`;
-    const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
-    const binds = {tier: tier}; 
-    var result = await connection.execute(sql, binds, options);
-    return result;
-    // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
-  } catch (err) {
-    console.log(err);
-  } finally {
-    if (connection) {
-      try {
-        // Put the connection back in the pool
-        await connection.close();
-      } catch (err) {
-        console.log(err);
+  if(create_db_status == DB_CREATE_NOT_DONE)
+  {
+    console.log('Starting to create database schema and data ..');
+    await create_db();
+    console.log('Starting to create database schema and data done.');
+  } else if(create_db_status == DB_CREATE_DONE)
+  {
+    try {
+      // Get a connection from the default pool
+      connection = await oracledb.getConnection();
+      const sql = `SELECT ispublic, isprivate, ispermissions, issharing, isunlimited, isextrasec FROM options WHERE tier = :tier`;
+      const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
+      const binds = {tier: tier}; 
+      var result = await connection.execute(sql, binds, options);
+      return result;
+      // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
+    } catch (err) {
+      console.log(err);
+    } finally {
+      if (connection) {
+        try {
+          // Put the connection back in the pool
+          await connection.close();
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
+  } else {
+    return {};
   }
 }
 
@@ -209,7 +219,7 @@ app.get('/options/:tier', (req, res) => {
     {
       res.send(data.rows);
     } else {
-      res.send([]);
+      res.send({});
     }
   });
 });
