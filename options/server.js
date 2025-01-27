@@ -9,7 +9,6 @@ console.log("atp password:" + password);
 
 async function init() {
   try {
-    console.log('Connection pool started');
     // Create a connection pool which will later be accessed via the
     // pool cache as the 'default' pool.
     await oracledb.createPool({
@@ -34,7 +33,6 @@ async function init() {
       // enableStatistics: false // record pool usage for oracledb.getPool().getStatistics() and logStatistics()
     });
     console.log('Connection pool started');
-    await create_db();
   } catch (err) {
     console.log('init() error: ' + err.message);
   }
@@ -42,11 +40,16 @@ async function init() {
 
 async function create_db()
 {
-  let connection, sql, binds, options, result;
+  const config = {
+    user: "admin",
+    password: password,
+    connectString: "localhost:1521/MYATP"
+  };
+  let connection2, sql, binds, options, result;
   try {
     console.log('Creating database schema and data ..');
 
-    connection = await oracledb.getConnection();
+    connection2 = await oracledb.getConnection(config);
     const stmts = [
       `DROP TABLE PRICE`,
 
@@ -94,7 +97,7 @@ async function create_db()
 
     for (const s of stmts) {
       try {
-        await connection.execute(s);
+        await connection2.execute(s);
       } catch (e) {
         if (e.errorNum != 942)
           console.log(e);
@@ -118,7 +121,7 @@ async function create_db()
         { type: oracledb.STRING, maxSize: 1000 }
       ]
     };
-    result = await connection.executeMany(sql, binds, options);
+    result = await connection2.executeMany(sql, binds, options);
     console.log("Number of rows inserted to PRICE table:", result.rowsAffected);
 
     sql = `INSERT INTO OPTIONS (TIER, ISPUBLIC, ISPRIVATE, ISPERMISSIONS, ISSHARING, ISUNLIMITED, ISEXTRASEC) VALUES (:1, :2, :3, :4, :5, :6, :7)`;
@@ -140,17 +143,16 @@ async function create_db()
         { type: oracledb.STRING, maxSize: 2 }
       ]
     };
-    result = await connection.executeMany(sql, binds, options);
+    result = await connection2.executeMany(sql, binds, options);
     console.log('Number of rows inserted OPTIONS table:', result.rowsAffected);
 
   } catch (err) {
     console.log(err);
   } finally {
-    if (connection) {
+    if (connection2) {
       console.log('Creating database schema and data done.');
-      create_db_done = true;
       try {
-        await connection.close();
+        await connection2.close();
       } catch (err) {
         console.log(err);
       }
@@ -210,6 +212,8 @@ app.get('/options/:tier', (req, res) => {
     }
   });
 });
+
+await create_db();
 
 app.listen(port, () => {
   init();
