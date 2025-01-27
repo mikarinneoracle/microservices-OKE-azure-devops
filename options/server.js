@@ -34,7 +34,7 @@ async function init() {
     });
     console.log('Connection pool started');
   } catch (err) {
-    console.error('init() error: ' + err.message);
+    console.log('init() error: ' + err.message);
   }
 }  
 
@@ -50,14 +50,14 @@ async function getOptions(tier) {
     return result;
     // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
   } catch (err) {
-    console.error(err);
+    console.log(err);
   } finally {
     if (connection) {
       try {
         // Put the connection back in the pool
         await connection.close();
       } catch (err) {
-        console.error(err);
+        console.log(err);
       }
     }
   }
