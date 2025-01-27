@@ -99,8 +99,9 @@ async function create_db()
       try {
         await connection.execute(s);
       } catch (e) {
-        if (e.errorNum != 942)
+        if (e.errorNum != 942) {
           //console.log(e);
+        }
       }
     }
 
