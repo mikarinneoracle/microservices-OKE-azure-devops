@@ -7,6 +7,8 @@ const port = 8080;
 const password = process.env.ATP_PWD;
 console.log("atp password:" + password);
 
+let create_db_done = false;
+
 async function init() {
   try {
     // Create a connection pool which will later be accessed via the
@@ -33,7 +35,6 @@ async function init() {
       // enableStatistics: false // record pool usage for oracledb.getPool().getStatistics() and logStatistics()
     });
     console.log('Connection pool started');
-    create_db();
   } catch (err) {
     console.log('init() error: ' + err.message);
   }
@@ -144,6 +145,8 @@ async function create_db()
     console.log(err);
   } finally {
     if (connection) {
+      console.log("Create DB done");
+      create_db_done = true;
       try {
         await connection.close();
       } catch (err) {
@@ -156,6 +159,10 @@ async function create_db()
 async function getOptions(tier) {
   let connection;
   try {
+    if(!create_db_done)
+    {
+      await create_db();
+    }
     // Get a connection from the default pool
     connection = await oracledb.getConnection();
     const sql = `SELECT ispublic, isprivate, ispermissions, issharing, isunlimited, isextrasec FROM options WHERE tier = :tier`;
