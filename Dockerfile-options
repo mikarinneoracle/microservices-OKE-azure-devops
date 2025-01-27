@@ -1,3 +1,5 @@
 FROM node:16.16.0
 COPY ./options/ .
 CMD [ "node", "server.js" ]
+
+RUN WGET http://127.0.0.1/options/free
