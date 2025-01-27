@@ -77,17 +77,17 @@ async function run() {
       ['PRO', 10, 15, 200, 'Priority Email'],
       ['ENTERPRISE', 150, 1000, 50000, 'Phone and Email']
     ];
-
-    result = await connection.executeMany(sql, binds, options);
-    console.log("Number of rows inserted:", result.rowsAffected);
-
-    sql = `INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES (:1, :2, :3, :4, :5)`;
-    binds = [
-      ['FREE', 0, 1, 10, 'Email'],
-      ['PRO', 10, 15, 200, 'Priority Email'],
-      ['ENTERPRISE', 150, 1000, 50000, 'Phone and Email']
-    ];
-
+    options = {
+      autoCommit: true,
+      // batchErrors: true,  // continue processing even if there are data errors
+      bindDefs: [
+        { type: oracledb.STRING, maxSize: 200 },
+        { type: oracledb.NUMBER },
+        { type: oracledb.NUMBER },
+        { type: oracledb.NUMBER },
+        { type: oracledb.STRING, maxSize: 1000 }
+      ]
+    };
     result = await connection.executeMany(sql, binds, options);
     console.log("Number of rows inserted to PRICE table:", result.rowsAffected);
 
@@ -97,7 +97,19 @@ async function run() {
       ['PRO', 'Y', 'Y', 'Y', 'Y', 'Y', 'N'],
       ['ENTERPRISE', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y']
     ];
-
+    options = {
+      autoCommit: true,
+      // batchErrors: true,  // continue processing even if there are data errors
+      bindDefs: [
+        { type: oracledb.STRING, maxSize: 200 },
+        { type: oracledb.STRING, maxSize: 2 },
+        { type: oracledb.STRING, maxSize: 2 },
+        { type: oracledb.STRING, maxSize: 2 },
+        { type: oracledb.STRING, maxSize: 2 },
+        { type: oracledb.STRING, maxSize: 2 },
+        { type: oracledb.STRING, maxSize: 2 }
+      ]
+    };
     result = await connection.executeMany(sql, binds, options);
     console.log("Number of rows inserted OPTIONS table:", result.rowsAffected);
 
