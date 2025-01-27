@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: db
-        image: container-registry.oracle.com/database/adb-free:latest-23ai
+        image: container-registry.oracle.com/database/adb-free:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 1521
