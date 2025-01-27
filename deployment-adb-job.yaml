@@ -40,9 +40,6 @@ spec:
       - name: ADB_LOCAL_JOB_NAME
         image: fra.ocir.io/frsxwtjslf35/azure-test-local-adb-job:1
         imagePullPolicy: Always
-        volumeMounts:
-            - name: secret-volume
-              mountPath: /instantclient_23_3/network/admin
         env:
           - name: ATP_PWD
             value: "WelcomeFolks123##"
