@@ -1,5 +1,6 @@
 const express = require('express');
 const oracledb = require('oracledb');
+const schema = require('oracledb');
 
 const app = express();
 const port = 8080;
@@ -45,11 +46,11 @@ async function create_db()
     password: password,
     connectString: "localhost:1521/MYATP"
   };
-  let connection2, sql, binds, options, result;
+  let connection, sql, binds, options, result;
   try {
     console.log('Creating database schema and data ..');
 
-    connection2 = await oracledb.getConnection(config);
+    connection = await schema.getConnection(config);
     const stmts = [
       `DROP TABLE PRICE`,
 
@@ -97,7 +98,7 @@ async function create_db()
 
     for (const s of stmts) {
       try {
-        await connection2.execute(s);
+        await connection.execute(s);
       } catch (e) {
         if (e.errorNum != 942)
           console.log(e);
@@ -121,7 +122,7 @@ async function create_db()
         { type: oracledb.STRING, maxSize: 1000 }
       ]
     };
-    result = await connection2.executeMany(sql, binds, options);
+    result = await connection.executeMany(sql, binds, options);
     console.log("Number of rows inserted to PRICE table:", result.rowsAffected);
 
     sql = `INSERT INTO OPTIONS (TIER, ISPUBLIC, ISPRIVATE, ISPERMISSIONS, ISSHARING, ISUNLIMITED, ISEXTRASEC) VALUES (:1, :2, :3, :4, :5, :6, :7)`;
@@ -143,16 +144,17 @@ async function create_db()
         { type: oracledb.STRING, maxSize: 2 }
       ]
     };
-    result = await connection2.executeMany(sql, binds, options);
+    result = await connection.executeMany(sql, binds, options);
     console.log('Number of rows inserted OPTIONS table:', result.rowsAffected);
 
   } catch (err) {
     console.log(err);
   } finally {
-    if (connection2) {
+    if (connection) {
       console.log('Creating database schema and data done.');
+      create_db_done = true;
       try {
-        await connection2.close();
+        await connection.close();
       } catch (err) {
         console.log(err);
       }
@@ -212,8 +214,6 @@ app.get('/options/:tier', (req, res) => {
     }
   });
 });
-
-create_db();
 
 app.listen(port, () => {
   init();
