@@ -9,7 +9,7 @@ console.log("atp password:" + password);
 
 async function init() {
   try {
-    await create_db();
+    console.log('Connection pool started');
     // Create a connection pool which will later be accessed via the
     // pool cache as the 'default' pool.
     await oracledb.createPool({
@@ -34,6 +34,7 @@ async function init() {
       // enableStatistics: false // record pool usage for oracledb.getPool().getStatistics() and logStatistics()
     });
     console.log('Connection pool started');
+    await create_db();
   } catch (err) {
     console.log('init() error: ' + err.message);
   }
@@ -41,16 +42,11 @@ async function init() {
 
 async function create_db()
 {
-  const config = {
-    user: "admin",
-    password: password,
-    connectString: "localhost:1521/MYATP"
-  };
   let connection, sql, binds, options, result;
   try {
     console.log('Creating database schema and data ..');
 
-    connection = await oracledb.getConnection(config);
+    connection = await oracledb.getConnection();
     const stmts = [
       `DROP TABLE PRICE`,
 
