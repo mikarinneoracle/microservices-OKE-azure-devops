@@ -28,8 +28,8 @@ spec:
           secret:
             secretName: instance-wallet
   backoffLimit: 4
-  ---
-  apiVersion: batch/v1
+---
+apiVersion: batch/v1
 kind: Job
 metadata:
   name: ADB_LOCAL_JOB_NAME
