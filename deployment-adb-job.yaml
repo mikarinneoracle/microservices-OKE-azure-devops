@@ -18,6 +18,8 @@ spec:
               secretKeyRef:
                 name: admin-password
                 key: admin-password
+          - name: CONNECT_STRING
+            value: "atp_tp"
       restartPolicy: Never
       imagePullSecrets:
       - name: fraocirsecret
@@ -25,4 +27,28 @@ spec:
         - name: secret-volume
           secret:
             secretName: instance-wallet
+  backoffLimit: 4
+  ---
+  apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ADB_LOCAL_JOB_NAME
+spec:
+  template:
+    spec:
+      containers:
+      - name: ADB_LOCAL_JOB_NAME
+        image: fra.ocir.io/frsxwtjslf35/azure-test-local-adb-job:1
+        imagePullPolicy: Always
+        volumeMounts:
+            - name: secret-volume
+              mountPath: /instantclient_23_3/network/admin
+        env:
+          - name: ATP_PWD
+            value: "WelcomeFolks123##"
+          - name: CONNECT_STRING
+            value: "localhost:1521/MYATP"
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: fraocirsecret
   backoffLimit: 4

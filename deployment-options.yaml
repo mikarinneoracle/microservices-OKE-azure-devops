@@ -25,6 +25,8 @@ spec:
             value: "ATP"
           - name: ADMIN_PASSWORD
             value: "WelcomeFolks123##"
+          - name: WALLET_PASSWORD
+            value: "WelcomeFolks123##"
           - name: NAME
             value: "myatp"
           - name: cap-add
