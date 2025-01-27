@@ -4,6 +4,9 @@ var pricing = new Vue({
   el: '#pricing',
   data: { data },
   mounted () {
+    data.free = { price : {}, options : {} }
+    data.pro = { price : {}, options : {} }
+    data.enterprise = { price : {}, options : {} }
     setUpData();
   },
   methods:{
@@ -11,9 +14,6 @@ var pricing = new Vue({
 })
 
 async function setUpData() {
-    data.free = { price : {}, options : {} }
-    data.pro = { price : {}, options : {} }
-    data.enterprise = { price : {}, options : {} }
     await getTierPrice('FREE');
     await getTierPrice('PRO');
     await getTierPrice('ENTERPRISE');
