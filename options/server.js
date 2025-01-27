@@ -143,7 +143,6 @@ async function create_db()
     //console.log(err);
   } finally {
     if (connection) {
-      console.log('Creating database schema and data done.');
       try {
         await connection.close();
       } catch (err) {
@@ -156,10 +155,10 @@ async function create_db()
 async function getOptions(tier) {
   let connection;
   try {
-    // Get a connection from the default pool
     if(!db_created) { 
       await create_db();
     }
+    // Get a connection from the default pool
     connection = await oracledb.getConnection();
     const sql = `SELECT ispublic, isprivate, ispermissions, issharing, isunlimited, isextrasec FROM options WHERE tier = :tier`;
     const options = { outFormat: oracledb.OUT_FORMAT_OBJECT };
