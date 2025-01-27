@@ -7,12 +7,20 @@ var pricing = new Vue({
     data.free = { price : {}, options : {} }
     data.pro = { price : {}, options : {} }
     data.enterprise = { price : {}, options : {} }
-    getTierPrice('FREE');
-    getTierPrice('PRO');
-    getTierPrice('ENTERPRISE');
-    getTierOptions('FREE', function(response) { console.log(response) });
-    //getTierOptions('PRO');
-    //getTierOptions('ENTERPRISE');
+    getTierPrice('FREE', function(response) { 
+        getTierPrice('PRO', function(response) { 
+            getTierPrice('ENTERPRISE', function(response) { 
+                console.log("Price data retrieved succesfully");
+            });
+        });
+    });
+    getTierOptions('FREE', function(response) { 
+        getTierOptions('PRO', function(response) { 
+            getTierOptions('ENTERPRISE', function(response) { 
+                console.log("Options data retrieved succesfully");
+            });
+        });
+    });
   },
   methods:{
   }
