@@ -40,6 +40,7 @@ async function init() {
     while(i <= 5 && !create_db_done)
     {
       console.log('Trying ... ' + i + '/5');
+      i++;
       await create_db();
     }
     if(!create_db_done)
