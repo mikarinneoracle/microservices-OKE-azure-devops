@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
       - name: ADB_LOCAL_JOB_NAME
-        image: fra.ocir.io/frsxwtjslf35/azure-test-local-adb-job:1
+        image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
         imagePullPolicy: Always
         env:
           - name: ATP_PWD
