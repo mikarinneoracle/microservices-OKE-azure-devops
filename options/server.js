@@ -7,8 +7,6 @@ const port = 8080;
 const password = process.env.ATP_PWD;
 console.log("atp password:" + password);
 
-let create_db_done = false;
-
 async function init() {
   try {
     // Create a connection pool which will later be accessed via the
@@ -42,11 +40,16 @@ async function init() {
 
 async function create_db()
 {
+  const config = {
+    user: "admin",
+    password: password,
+    connectString: "localhost:1521/MYATP"
+  };
   let connection, sql, binds, options, result;
   try {
     console.log('Creating database schema and data ..');
 
-    connection = await oracledb.getConnection();
+    connection = await oracledb.getConnection(config);
     const stmts = [
       `DROP TABLE PRICE`,
 
@@ -161,12 +164,6 @@ async function create_db()
 async function getOptions(tier) {
   let connection;
   try {
-    if(!create_db_done)
-    {
-      console.log('Starting to create database schema and data ..');
-      await create_db();
-      console.log('Starting to create database schema and data done.');
-    }
     // Get a connection from the default pool
     connection = await oracledb.getConnection();
     const sql = `SELECT ispublic, isprivate, ispermissions, issharing, isunlimited, isextrasec FROM options WHERE tier = :tier`;
@@ -218,6 +215,7 @@ app.get('/options/:tier', (req, res) => {
 });
 
 app.listen(port, () => {
+  create_db();
   init();
   console.log(`Options svc listening on port ${port}`);
 });
