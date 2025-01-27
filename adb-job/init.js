@@ -67,7 +67,7 @@ async function run() {
         await connection.execute(s);
       } catch (e) {
         if (e.errorNum != 942)
-          console.error(e);
+          console.log(e);
       }
     }
 
@@ -114,13 +114,13 @@ async function run() {
     console.log("Number of rows inserted OPTIONS table:", result.rowsAffected);
 
   } catch (err) {
-    console.error(err);
+    console.log(err);
   } finally {
     if (connection) {
       try {
         await connection.close();
       } catch (err) {
-        console.error(err);
+        console.log(err);
       }
     }
   }
