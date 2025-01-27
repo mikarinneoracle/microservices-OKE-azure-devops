@@ -4,30 +4,25 @@ var pricing = new Vue({
   el: '#pricing',
   data: { data },
   mounted () {
-    data.free = { price : {}, options : {} }
-    data.pro = { price : {}, options : {} }
-    data.enterprise = { price : {}, options : {} }
-
-    getTierPrice('FREE' , () => {  
-        getTierPrice('PRO' , () => {  
-            getTierPrice('ENTERPRISE' , () => {  
-            });
-        });
-    }); 
-
-    getTierOptions('FREE' , () => {  
-        getTierOptions('PRO' , () => {  
-            getTierOptions('ENTERPRISE' , () => {  
-            });
-        });
-    }); 
-   
+    setUpData();
   },
   methods:{
   }
 })
 
-function getTierPrice(tier, callback) {
+async function setUpData() {
+    data.free = { price : {}, options : {} }
+    data.pro = { price : {}, options : {} }
+    data.enterprise = { price : {}, options : {} }
+    await getTierPrice('FREE');
+    await getTierPrice('PRO');
+    await getTierPrice('ENTERPRISE');
+    await getTierOptions('FREE');
+    await getTierOptions('PRO');
+    await getTierOptions('ENTERPRISE');
+}
+
+async function getTierPrice(tier, callback) {
     console.log(tier);
     axios
       .get('/price/' + tier)
@@ -55,7 +50,7 @@ function getTierPrice(tier, callback) {
         })
 }
 
-function getTierOptions(tier, callback) {
+async function getTierOptions(tier, callback) {
     console.log(tier);
     axios
       .get('/options/' + tier)
