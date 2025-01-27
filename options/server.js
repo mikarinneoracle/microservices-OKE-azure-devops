@@ -9,9 +9,9 @@ async function init() {
     // Create a connection pool which will later be accessed via the
     // pool cache as the 'default' pool.
     await oracledb.createPool({
-      user: "nodeapp",
-      password: "WelcomeFolks123##",
-      connectString: "localhost/XE",
+      user: "admin",
+      password: password,
+      connectString: "localhost:1521/MYATP",
       // edition: 'ORA$BASE', // used for Edition Based Redefintion
       // events: false, // whether to handle Oracle Database FAN and RLB events or support CQN
       // externalAuth: false, // whether connections should be established using External Authentication
