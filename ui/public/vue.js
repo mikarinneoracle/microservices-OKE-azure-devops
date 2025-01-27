@@ -10,7 +10,7 @@ var pricing = new Vue({
     getTierPrice('FREE');
     getTierPrice('PRO');
     getTierPrice('ENTERPRISE');
-    getTierOptions('FREE');
+    getTierOptions('FREE', function(response) { console.log(response) });
     //getTierOptions('PRO');
     //getTierOptions('ENTERPRISE');
   },
