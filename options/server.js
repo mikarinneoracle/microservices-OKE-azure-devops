@@ -35,6 +35,12 @@ async function init() {
       // enableStatistics: false // record pool usage for oracledb.getPool().getStatistics() and logStatistics()
     });
     console.log('Connection pool started');
+    if(!create_db_done)
+    {
+      console.log('Starting to create database schema and data ..');
+      await create_db();
+      console.log('Starting to create database schema and data done.');
+    }
   } catch (err) {
     console.log('init() error: ' + err.message);
   }
@@ -161,12 +167,14 @@ async function create_db()
 async function getOptions(tier) {
   let connection;
   try {
+    /*
     if(!create_db_done)
     {
       console.log('Starting to create database schema and data ..');
       await create_db();
       console.log('Starting to create database schema and data done.');
     }
+    */
     // Get a connection from the default pool
     connection = await oracledb.getConnection();
     const sql = `SELECT ispublic, isprivate, ispermissions, issharing, isunlimited, isextrasec FROM options WHERE tier = :tier`;
