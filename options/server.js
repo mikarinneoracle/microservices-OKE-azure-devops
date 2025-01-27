@@ -41,8 +41,8 @@ async function init() {
 
 async function create_db()
 {
+  let connection, sql, binds, options, result;
   try {
-    let sql, binds, options, result;
     connection = await oracledb.getConnection(config);
     const stmts = [
       `DROP TABLE PRICE`,
