@@ -7,12 +7,27 @@ var pricing = new Vue({
     data.free = { price : {}, options : {} }
     data.pro = { price : {}, options : {} }
     data.enterprise = { price : {}, options : {} }
-    getTierPrice('FREE');
-    getTierPrice('PRO');
-    getTierPrice('ENTERPRISE');
-    getTierOptions('FREE');
-    getTierOptions('PRO');
-    getTierOptions('ENTERPRISE');
+
+    getTierPrice('FREE').then((data) => {  
+        console.log(data);
+        getTierPrice('PRO').then((data) => {  
+            console.log(data);
+            getTierPrice('ENTERPRISE').then((data) => {  
+                console.log(data);
+            });
+        });
+    }); 
+
+    getTierOptions('FREE').then((data) => {  
+        console.log(data);
+        getTierOptions('PRO').then((data) => {  
+            console.log(data);
+            getTierOptions('ENTERPRISE').then((data) => {  
+                console.log(data);
+            });
+        });
+    }); 
+   
   },
   methods:{
   }
@@ -44,9 +59,6 @@ function getTierPrice(tier, callback) {
      .catch(error => {
             console.log(error)
         })
-     .finally(() => { 
-            console.log(data);
-        })
 }
 
 function getTierOptions(tier, callback) {
@@ -74,8 +86,5 @@ function getTierOptions(tier, callback) {
         )
      .catch(error => {
             console.log(error)
-        })
-     .finally(() => { 
-            console.log(data);
         })
 }
