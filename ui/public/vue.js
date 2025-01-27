@@ -8,22 +8,16 @@ var pricing = new Vue({
     data.pro = { price : {}, options : {} }
     data.enterprise = { price : {}, options : {} }
 
-    getTierPrice('FREE').then((data) => {  
-        console.log(data);
-        getTierPrice('PRO').then((data) => {  
-            console.log(data);
-            getTierPrice('ENTERPRISE').then((data) => {  
-                console.log(data);
+    getTierPrice('FREE' , () => {  
+        getTierPrice('PRO' , () => {  
+            getTierPrice('ENTERPRISE' , () => {  
             });
         });
     }); 
 
-    getTierOptions('FREE').then((data) => {  
-        console.log(data);
-        getTierOptions('PRO').then((data) => {  
-            console.log(data);
-            getTierOptions('ENTERPRISE').then((data) => {  
-                console.log(data);
+    getTierOptions('FREE' , () => {  
+        getTierOptions('PRO' , () => {  
+            getTierOptions('ENTERPRISE' , () => {  
             });
         });
     }); 
