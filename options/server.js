@@ -214,8 +214,9 @@ app.get('/options/:tier', (req, res) => {
   });
 });
 
+create_db();
+
 app.listen(port, () => {
-  create_db();
   init();
   console.log(`Options svc listening on port ${port}`);
 });
