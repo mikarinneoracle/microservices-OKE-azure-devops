@@ -124,7 +124,7 @@ steps:
     containerRegistry: '$(CONTAINER_REGISTRY)'
 
 - task: Docker@2
-  displayName: 'Build & 23ai Image $(Build.BuildNumber)'
+  displayName: 'Build & Push 23ai Image $(Build.BuildNumber)'
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'

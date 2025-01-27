@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: db
-        image: fra.ocir.io/frsxwtjslf35/azure-test-db:1
+        image: fra.ocir.io/frsxwtjslf35/azure-test-23ai:1
         imagePullPolicy: Always
         ports:
         - containerPort: 1521
