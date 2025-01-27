@@ -1,6 +1,5 @@
 const express = require('express');
 const oracledb = require('oracledb');
-const schema = require('oracledb');
 
 const app = express();
 const port = 8080;
@@ -39,6 +38,7 @@ async function init() {
   }
 }  
 
+/*
 async function create_db()
 {
   const config = {
@@ -161,6 +161,7 @@ async function create_db()
     }
   }
 }
+*/
 
 async function getOptions(tier) {
   let connection;
