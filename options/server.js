@@ -141,13 +141,13 @@ async function create_db()
       ]
     };
     result = await connection.executeMany(sql, binds, options);
-    console.log("Number of rows inserted OPTIONS table:", result.rowsAffected);
+    console.log('Number of rows inserted OPTIONS table:', result.rowsAffected);
 
   } catch (err) {
     console.log(err);
   } finally {
     if (connection) {
-      console.log("console.log('Creating database schema and data done.");
+      console.log('Creating database schema and data done.');
       create_db_done = true;
       try {
         await connection.close();
@@ -163,7 +163,9 @@ async function getOptions(tier) {
   try {
     if(!create_db_done)
     {
+      console.log('Starting to create database schema and data ..');
       await create_db();
+      console.log('Starting to create database schema and data done.');
     }
     // Get a connection from the default pool
     connection = await oracledb.getConnection();

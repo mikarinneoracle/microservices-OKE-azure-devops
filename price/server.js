@@ -7,7 +7,7 @@ const port = 8080;
 oracledb.initOracleClient({ libDir: '/instantclient_23_3', configDir: '/instantclient_23_3/network/admin/' });
 
 const password = process.env.ATP_PWD;
-console.log("atp password:" + password);
+console.log('atp password:' + password);
 
 async function init() {
   try {
