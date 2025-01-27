@@ -100,7 +100,7 @@ async function create_db()
         await connection.execute(s);
       } catch (e) {
         if (e.errorNum != 942)
-          console.log(e);
+          //console.log(e);
       }
     }
 
@@ -147,7 +147,7 @@ async function create_db()
     console.log('Number of rows inserted OPTIONS table:', result.rowsAffected);
     create_db_status = DB_CREATE_DONE;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     create_db_status = DB_CREATE_NOT_DONE;
   } finally {
     if (connection) {
@@ -179,7 +179,7 @@ async function getOptions(tier) {
       return result;
       // oracledb.getPool().logStatistics(); // show pool statistics.  pool.enableStatistics must be true
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       if (connection) {
         try {
@@ -213,14 +213,23 @@ async function closePoolAndExit() {
 }
 
 app.get('/options/:tier', (req, res) => {
-  getOptions(req.params['tier']).then((data) => {
-    if(data && data.rows)
-    {
-      res.send(data.rows);
-    } else {
-      res.send({});
-    }
-  });
+  let options = {};
+  let tries = 1;
+  let MAX_tries = 50;
+  while(tries <= MAX_tries)
+  {
+    getOptions(req.params['tier']).then((data) => {
+      if(data && data.rows)
+      {
+        options = data.rows;
+        tries = MAX_TRIES + 1;
+      } else {
+        tries++;
+        console.log('Strill trying ... ' + tries + '/50');
+      }
+    });
+  }
+  res.send(options);
 });
 
 app.listen(port, () => {
