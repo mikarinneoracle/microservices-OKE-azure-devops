@@ -44,8 +44,6 @@ async function create_db()
 {
   let connection, sql, binds, options, result;
   try {
-    console.log('Creating database schema and data ..');
-
     connection = await oracledb.getConnection();
     const stmts = [
 
