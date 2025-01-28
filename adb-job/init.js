@@ -119,7 +119,7 @@ async function run() {
 
   } catch (err) {
     console.log(err);
-    process.exit(0); // Restart the job in case of connection error
+    process.exit(1); // Restart the job in case of connection error with a non-zero exit status
   } finally {
     if (connection) {
       try {

@@ -20,7 +20,7 @@ spec:
                 key: admin-password
           - name: CONNECT_STRING
             value: "atp_tp"
-      restartPolicy: Never
+      restartPolicy: OnFailure
       imagePullSecrets:
       - name: fraocirsecret
       volumes:

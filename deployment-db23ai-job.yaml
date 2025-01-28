@@ -14,7 +14,7 @@ spec:
             value: "WelcomeFolks123##"
           - name: CONNECT_STRING
             value: "db23ai-clusterip:1521/MYATP"
-      restartPolicy: Never
+      restartPolicy: OnFailure
       imagePullSecrets:
       - name: fraocirsecret
   backoffLimit: 20
