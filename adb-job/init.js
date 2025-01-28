@@ -69,7 +69,6 @@ async function run() {
       } catch (e) {
         if (e.errorNum != 942) {
           console.log(e);
-          closePoolAndExit(); // Restart the job in case of connection error
         }
       }
     }
@@ -118,6 +117,7 @@ async function run() {
 
   } catch (err) {
     console.log(err);
+    closePoolAndExit(); // Restart the job in case of connection error
   } finally {
     if (connection) {
       try {
