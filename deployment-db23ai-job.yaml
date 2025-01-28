@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: DB23ai_JOB_NAME
+  name: DB23AI_JOB_NAME
 spec:
   template:
     spec:
       containers:
-      - name: DB23ai_JOB_NAME
+      - name: DB23AI_JOB_NAME
         image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
         imagePullPolicy: Always
         env:

@@ -174,11 +174,12 @@ steps:
     tags: $(Build.BuildNumber)
 
 - task: PowerShell@2
-  displayName: 'Setup ADB job yaml'
+  displayName: 'Setup ADB jobs yaml'
   inputs:
     targetType: 'inline'
     script: |
       ((Get-Content -path deployment-adb-job.yaml -Raw) -replace 'ADB_JOB_NAME', 'adb-job-$(Build.BuildId)') | Set-Content -Path deployment-adb-job.yaml
+      ((Get-Content -path deployment-db23ai-job.yaml -Raw) -replace 'DB23AI_JOB_NAME', 'db23ai-job-$(Build.BuildId)') | Set-Content -Path deployment-db23ai-job.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Setup secret'
@@ -197,6 +198,7 @@ steps:
     manifests: |
       $(System.DefaultWorkingDirectory)/db23ai-clusterip.yaml
       $(System.DefaultWorkingDirectory)/deployment-adb-job.yaml
+      $(System.DefaultWorkingDirectory)/deployment-db23ai-job.yaml
       $(System.DefaultWorkingDirectory)/deployment-ui.yaml
       $(System.DefaultWorkingDirectory)/deployment-price.yaml
       $(System.DefaultWorkingDirectory)/deployment-options.yaml
