@@ -18,6 +18,8 @@ spec:
               secretKeyRef:
                 name: admin-password
                 key: admin-password
+          - name: CONNECT_STRING
+            value: "atp_tp"
       restartPolicy: Never
       imagePullSecrets:
       - name: fraocirsecret

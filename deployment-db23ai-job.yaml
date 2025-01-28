@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: DB23ai_JOB_NAME
+spec:
+  template:
+    spec:
+      containers:
+      - name: DB23ai_JOB_NAME
+        image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
+        imagePullPolicy: Always
+        env:
+          - name: ATP_PWD
+            value: "WelcomeFolks123##"
+          - name: CONNECT_STRING
+            value: "db23ai-clusterip:1521/MYATP"
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: fraocirsecret
+  backoffLimit: 4
