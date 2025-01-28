@@ -195,6 +195,7 @@ steps:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
+      $(System.DefaultWorkingDirectory)/db23ai-clusterip.yaml
       $(System.DefaultWorkingDirectory)/deployment-adb-job.yaml
       $(System.DefaultWorkingDirectory)/deployment-ui.yaml
       $(System.DefaultWorkingDirectory)/deployment-price.yaml
