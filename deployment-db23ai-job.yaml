@@ -17,4 +17,4 @@ spec:
       restartPolicy: Never
       imagePullSecrets:
       - name: fraocirsecret
-  backoffLimit: 4
+  backoffLimit: 20

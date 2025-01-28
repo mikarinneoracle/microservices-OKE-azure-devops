@@ -67,8 +67,10 @@ async function run() {
       try {
         await connection.execute(s);
       } catch (e) {
-        if (e.errorNum != 942)
+        if (e.errorNum != 942) {
           console.log(e);
+          closePoolAndExit(); // Restart the job in case of connection error
+        }
       }
     }
 

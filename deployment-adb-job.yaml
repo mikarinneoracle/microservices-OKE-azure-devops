@@ -27,4 +27,4 @@ spec:
         - name: secret-volume
           secret:
             secretName: instance-wallet
-  backoffLimit: 4
+  backoffLimit: 20
