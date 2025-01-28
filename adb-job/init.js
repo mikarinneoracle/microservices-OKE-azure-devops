@@ -55,6 +55,8 @@ async function run() {
 
       `CREATE UNIQUE INDEX "OPTIONS_PK" ON "OPTIONS" ("ID")`,
 
+      `CREATE UNIQUE INDEX "OPTIONS_CON_TIER_UNIQUE" ON "OPTIONS" ("TIER")`,
+
       `ALTER TABLE "OPTIONS" MODIFY ("TIER" NOT NULL ENABLE)`,
 
       `ALTER TABLE "OPTIONS" ADD CONSTRAINT "OPTIONS_PK" PRIMARY KEY ("ID") USING INDEX  ENABLE`,
@@ -117,7 +119,7 @@ async function run() {
 
   } catch (err) {
     console.log(err);
-    closePoolAndExit(); // Restart the job in case of connection error
+    process.exit(0); // Restart the job in case of connection error
   } finally {
     if (connection) {
       try {
