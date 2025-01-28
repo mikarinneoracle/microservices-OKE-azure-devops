@@ -4,7 +4,7 @@ This Azure DevOps ci/cd pipeline example builds and deploys a microservices appl
 <ul>
 <li><code>UI</code> single page web app with Bootstrap html and CSS and VueJS scripting under <b>/ui</b></li>
 <li><code>Price</code> with Autonomous Database access for the Price table and data under <b>/price</b></li>
-<li><code>Options</code> with XE sidecar database container for the Options table and data under <b>/options</b></li>
+<li><code>Options</code> with 23ai sidecar database container for the Options table and data under <b>/options</b></li>
 </ul>
 
 <p>
@@ -42,5 +42,5 @@ Also, add the Terraform statefile PAR to the pipeline variables as it is used to
 <p>
 Application looks like this:
 <p>
-<img src="ui.jpg" width="600" />
+<img src="ui_new.jpg" width="600" />
 
