@@ -10,7 +10,7 @@ This Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> example build
 <p>
 The ci/cd pipeline will also:
 <ul>
-<li>Install Oracle <code>Database Operator for Kubernetes</code> to create an ADB instance for the Price database and to get access for it using the database wallet (mutual TLS; thick driver) in the <b>Price</b> microservice</li> under <a href="adb-operator/"/>/adb-operator/</a> (requires also cert-manager under <a href="cert-manager/">cert-manager</a>)
+<li>Install Oracle <code>Database Operator for Kubernetes</code> to create an ADB instance for the Price database and to get access for it using the database wallet (mutual TLS; thick driver) in the <b>Price</b> microservice</li> under <a href="adb-operator/"/>/adb-operator</a> (requires also cert-manager under <a href="cert-manager/">cert-manager</a>)
 <li>Create <code>Oracle 23ai database container</code> for the Options database to be run as a sidecar for the <b>Options</b> microservice using it via local TLS (no wallet; thin driver)</li>
 <li>Run a <code>Kubernetes jobs</code> to create both Price and Options database schemas with example data under <a href="adb-job/"/>/adb-job</a></li>
 <li>Create <code>nginx-ingress</code> to access the application from Internet under <a href="ingress-nginx/"/>/ingress-nginx</a></li>
