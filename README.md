@@ -1,11 +1,11 @@
 # Build and deploy a microservices NodeJS application to OKE with Azure DevOps
 
-This Azure DevOps ci/cd pipeline example builds and deploys a microservices application consisting of the following NodeJS microservices:
+This Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> example builds and deploys a microservices application consisting of the following NodeJS microservices:
 <ul>
 <li><code>UI</code> single page web app with Bootstrap html and CSS and VueJS scripting under <b>/ui</b></li>
 <li><code>Price</code> with Autonomous Database access for the Price table and data under <b>/price</b></li>
 <li><code>Options</code> with 23ai sidecar database container for the Options table and data under <b>/options</b></li>
-</ul>
+</ul>a
 
 <p>
 The ci/cd pipeline will also:
@@ -40,7 +40,32 @@ Also, add the Terraform statefile PAR to the pipeline variables as it is used to
 </ul>
 
 <p>
-Application looks like this:
+Application will look like this:
 <p>
-<img src="ui_new.jpg" width="600" />
+<img src="files/ui.jpg" width="600" />
+
+### Deployment Kubernetes jobs
+
+The Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> will first create an ADB cloud instance (if it does not already exist) and then deploy ADB (23ai database) as a sidecar pod. Then, the 2 Kubernetes jobs to create the ADB schemas and data for these are run until they are completed. 
+<p>
+The cloud ADB instance job usually is completed within the first attempt, but the since ADB sidecar creation takes longer it usually requires 3-4 attempts once the job has been completed. Something like this will show up in the OKE cluster with kubectl:
+
+<p>
+<img src="files/deployment_jobs_running.png" width="600" />
+
+Eventually, once the jobs are completed, it will look something like this:
+<p>
+<img src="files/deployment_completed.png" width="600" />
+
+### Prerequisites and tips
+
+<ul>
+<li>Setup <code>instance-principal</code> and <code>resource-principal</code> <b>OCI policies</b>. Any <code>404 error</code> is an indication that a policy is missing.</li>
+<li>Pipeline does not include <code>fraocirsecret</code> creation for OCIR operations of private Docker repos. Create it manually e.g. for the OCIR in FRA:
+<pre>
+kubectl create secret docker-registry fraocirsecret --docker-username '&lt;TENANCY_NAMESPACE&gt;/oracleidentitycloudservice/&lt;USER_NAME&gt;'  --docker-password '&lt;USER_PROFILE_AUTH_TOKEN&gt;'  --docker-server 'fra.ocir.io'
+</pre>
+</li>
+</ul>
+
 
