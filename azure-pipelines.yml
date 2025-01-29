@@ -90,7 +90,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      wget https://download.oracle.com/otn_software/linux/instantclient/23c/instantclient-basic-linux.x64-23.3.0.0.0.zip -P price
+      wget https://download.oracle.com/otn_software/linux/instantclient/23c/instantclient-basic-linux.x64-23.3.0.0.0.zip
 
 - task: NodeTool@0
   inputs:
@@ -128,7 +128,7 @@ steps:
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/adb-job/Dockerfile-23ai'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/options/Dockerfile-23ai'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY_23ai)'
     tags: $(Build.BuildNumber)
