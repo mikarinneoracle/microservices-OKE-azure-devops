@@ -13,7 +13,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'cert-manager'
     manifests: |
-      $(System.DefaultWorkingDirectory)/cert-manager-1.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager/cert-manager-1.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy Cert Manager 2/5'
@@ -22,7 +22,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'kube-system'
     manifests: |
-      $(System.DefaultWorkingDirectory)/cert-manager-2.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager/cert-manager-2.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy Cert Manager 3/5'
@@ -31,7 +31,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'cert-manager'
     manifests: |
-      $(System.DefaultWorkingDirectory)/cert-manager-3.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager/cert-manager-3.yaml
       
 - task: KubernetesManifest@0
   displayName: 'Deploy Cert Manager 4/5'
@@ -40,7 +40,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'kube-system'
     manifests: |
-      $(System.DefaultWorkingDirectory)/cert-manager-4.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager/cert-manager-4.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy Cert Manager 5/5'
@@ -49,7 +49,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'cert-manager'
     manifests: |
-      $(System.DefaultWorkingDirectory)/cert-manager-5.yaml
+      $(System.DefaultWorkingDirectory)/cert-manager/cert-manager-5.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy ADB cluster role binding'
@@ -58,14 +58,14 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'oracle-database-operator-system'
     manifests: |
-      $(System.DefaultWorkingDirectory)/ADB-cluster-role-binding.yaml
+      $(System.DefaultWorkingDirectory)/adb-operator/ADB-cluster-role-binding.yaml
 
 - task: PowerShell@2
   displayName: 'Setup ADB yaml'
   inputs:
     targetType: 'inline'
     script: |
-      ((Get-Content -path deployment-adb.yaml -Raw) -replace 'ADB_COMPARTMENT_OCID', '$(COMPARTMENT)') | Set-Content -Path deployment-adb.yaml
+      ((Get-Content -path adb-operator/deployment-adb.yaml -Raw) -replace 'ADB_COMPARTMENT_OCID', '$(COMPARTMENT)') | Set-Content -Path adb-operator/deployment-adb.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy ADB operator'
@@ -74,7 +74,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'oracle-database-operator-system'
     manifests: |
-      $(System.DefaultWorkingDirectory)/ADB-operator.yaml
+      $(System.DefaultWorkingDirectory)/adb-operator/ADB-operator.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy ADB'
@@ -82,15 +82,15 @@ steps:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
-      $(System.DefaultWorkingDirectory)/secrets-adb.yaml
-      $(System.DefaultWorkingDirectory)/deployment-adb.yaml
+      $(System.DefaultWorkingDirectory)/adb-operator/secrets-adb.yaml
+      $(System.DefaultWorkingDirectory)/adb-operator/deployment-adb.yaml
 
 - task: PowerShell@2
   displayName: 'Download Oracle instaclient'
   inputs:
     targetType: 'inline'
     script: |
-      wget https://download.oracle.com/otn_software/linux/instantclient/23c/instantclient-basic-linux.x64-23.3.0.0.0.zip
+      wget https://download.oracle.com/otn_software/linux/instantclient/23c/instantclient-basic-linux.x64-23.3.0.0.0.zip -P price
 
 - task: NodeTool@0
   inputs:
@@ -128,7 +128,7 @@ steps:
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-23ai'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/adb-job/Dockerfile-23ai'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY_23ai)'
     tags: $(Build.BuildNumber)
@@ -138,7 +138,7 @@ steps:
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-adb-job'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/adb-job/Dockerfile-adb-job'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY_ADB_JOB)'
     tags: $(Build.BuildNumber)
@@ -148,7 +148,7 @@ steps:
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-ui'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/ui/Dockerfile-ui'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY_UI)'
     tags: $(Build.BuildNumber)
@@ -158,7 +158,7 @@ steps:
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-price'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/price/Dockerfile-price'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY_PRICE)'
     tags: $(Build.BuildNumber)
@@ -168,7 +168,7 @@ steps:
   inputs:
     command: buildAndPush
     buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile-options'
+    Dockerfile: '$(System.DefaultWorkingDirectory)/options/Dockerfile-options'
     containerRegistry: '$(CONTAINER_REGISTRY)'
     repository: '$(CONTAINER_REPOSITORY_OPTIONS)'
     tags: $(Build.BuildNumber)
@@ -178,8 +178,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      ((Get-Content -path deployment-adb-job.yaml -Raw) -replace 'ADB_JOB_NAME', 'adb-job-$(Build.BuildId)') | Set-Content -Path deployment-adb-job.yaml
-      ((Get-Content -path deployment-db23ai-job.yaml -Raw) -replace 'DB23AI_JOB_NAME', 'db23ai-job-$(Build.BuildId)') | Set-Content -Path deployment-db23ai-job.yaml
+      ((Get-Content -path adb-job/deployment-adb-job.yaml -Raw) -replace 'ADB_JOB_NAME', 'adb-job-$(Build.BuildId)') | Set-Content -Path adb-job/deployment-adb-job.yaml
+      ((Get-Content -path adb-job/deployment-db23ai-job.yaml -Raw) -replace 'DB23AI_JOB_NAME', 'db23ai-job-$(Build.BuildId)') | Set-Content -Path adb-job/deployment-db23ai-job.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Setup secret'
@@ -196,9 +196,9 @@ steps:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
-      $(System.DefaultWorkingDirectory)/deployment-ui.yaml
-      $(System.DefaultWorkingDirectory)/deployment-price.yaml
-      $(System.DefaultWorkingDirectory)/deployment-options.yaml
+      $(System.DefaultWorkingDirectory)/ui/deployment-ui.yaml
+      $(System.DefaultWorkingDirectory)/price/deployment-price.yaml
+      $(System.DefaultWorkingDirectory)/options/deployment-options.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
@@ -213,9 +213,9 @@ steps:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
-      $(System.DefaultWorkingDirectory)/db23ai-clusterip.yaml
-      $(System.DefaultWorkingDirectory)/deployment-adb-job.yaml
-      $(System.DefaultWorkingDirectory)/deployment-db23ai-job.yaml
+      $(System.DefaultWorkingDirectory)/adb-job/db23ai-clusterip.yaml
+      $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml
+      $(System.DefaultWorkingDirectory)/adb-job/deployment-db23ai-job.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
@@ -228,7 +228,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'ingress-nginx'
     manifests: |
-      $(System.DefaultWorkingDirectory)/nginx-ingress.yaml
+      $(System.DefaultWorkingDirectory)/ingress-nginx/nginx-ingress.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy Ingress Routes to Node app'
@@ -236,7 +236,7 @@ steps:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
-      $(System.DefaultWorkingDirectory)/ui-clusterip.yaml
-      $(System.DefaultWorkingDirectory)/price-clusterip.yaml
-      $(System.DefaultWorkingDirectory)/options-clusterip.yaml
-      $(System.DefaultWorkingDirectory)/ingress-routes.yaml
+      $(System.DefaultWorkingDirectory)/ingress-nginx/ui-clusterip.yaml
+      $(System.DefaultWorkingDirectory)/ingress-nginx/price-clusterip.yaml
+      $(System.DefaultWorkingDirectory)/ingress-nginx/options-clusterip.yaml
+      $(System.DefaultWorkingDirectory)/ingress-nginx/ingress-routes.yaml
