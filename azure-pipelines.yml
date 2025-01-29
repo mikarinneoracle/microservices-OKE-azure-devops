@@ -202,10 +202,10 @@ steps:
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
-      $(container23aiImageFullNameForK8sDeploy):$(Build.BuildNumber)
-      $(containerUiImageFullNameForK8sDeploy):$(Build.BuildNumber)
-      $(containerPriceImageFullNameForK8sDeploy):$(Build.BuildNumber)
-      $(containerOptionsImageFullNameForK8sDeploy):$(Build.BuildNumber)
+      $(OCIR)/$(CONTAINER_REPOSITORY_23ai):$(Build.BuildNumber)
+      $(OCIR)/$(CONTAINER_REPOSITORY_UI):$(Build.BuildNumber)
+      $(OCIR)/$(CONTAINER_REPOSITORY_PRICE):$(Build.BuildNumber)
+      $(OCIR)/$(CONTAINER_REPOSITORY_OPTIONS):$(Build.BuildNumber)
 
 - task: KubernetesManifest@0
   displayName: 'Run DB jobs in OKE'
@@ -219,7 +219,7 @@ steps:
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
-      $(containerADBJobImageFullNameForK8sDeploy):$(Build.BuildNumber)
+      $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
 
 - task: KubernetesManifest@0
   displayName: 'Deploy Ingress'

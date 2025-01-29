@@ -44,7 +44,7 @@ Application will look like this:
 <p>
 <img src="files/ui.jpg" width="600" />
 
-### Deployment Kubernetes jobs
+### Deployment Kubernetes jobs for databases
 
 The Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> will first create an ADB cloud instance (if it does not already exist) and then deploy ADB (23ai database) as a sidecar pod. Then, the 2 Kubernetes jobs to create the ADB schemas and data for these are run until they are completed. 
 <p>
@@ -57,6 +57,26 @@ Eventually, once the jobs are completed, it will look something like this:
 <p>
 <img src="files/deployment_completed.png" width="600" />
 
+### Pipeline vars
+
+Multiple vars need to be set for the pipeline to run (with example values):
+
+<ul>
+<li>COMPARTMENT:ocid1.compartment.oc1..aaaaaaaa...qgq</li>
+<li>K8S_CONNECTION_NAME:OKE cluster Azure pipelines <b>service connection</b> name</li>
+<li>CONTAINER_REGISTRY:OCI Registry (OCIR) Azure pipelines <b>service connection</b> name<</li>
+<li>CONTAINER_REPOSITORY_23ai:&lt;TENANCY_NAMESPACE&gt;/azure-test-23ai</li>
+<li>CONTAINER_REPOSITORY_UI:&lt;TENANCY_NAMESPACE&gt;/azure-test-ui</li>
+<li>CONTAINER_REPOSITORY_PRICE:&lt;TENANCY_NAMESPACE&gt;/azure-test-price</li>
+<li>CONTAINER_REPOSITORY_OPTIONS:&lt;TENANCY_NAMESPACE&gt;/azure-test-options</li>
+<li>CONTAINER_REPOSITORY_ADB_JOB::&lt;TENANCY_NAMESPACE&gt;/azure-test-adb-job</li>
+<li>OcirPullSecret:OCIR pull secret (see tips below)</li>
+<li>OCIR:OCIR registry name e..g. <b>fra.ocir.io</b></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+
 ### Prerequisites and tips
 
 <ul>
@@ -66,6 +86,7 @@ Eventually, once the jobs are completed, it will look something like this:
 kubectl create secret docker-registry fraocirsecret --docker-username '&lt;TENANCY_NAMESPACE&gt;/oracleidentitycloudservice/&lt;USER_NAME&gt;'  --docker-password '&lt;USER_PROFILE_AUTH_TOKEN&gt;'  --docker-server 'fra.ocir.io'
 </pre>
 </li>
+<li>Create OCIR repos <i>in advance</i> before running the pipeline under the <b>target compartment</b>, otherwise they will be created automatically under the tenancy root compartment which is not a good idea.</li>
 </ul>
 
 
