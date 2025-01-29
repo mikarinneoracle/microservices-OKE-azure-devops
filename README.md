@@ -2,9 +2,9 @@
 
 This Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> example builds and deploys a microservices application consisting of the following NodeJS microservices:
 <ul>
-<li><code>UI</code> single page web app with Bootstrap html and CSS and VueJS scripting under <b>/ui</b></li>
-<li><code>Price</code> with Autonomous Database access for the Price table and data under <b>/price</b></li>
-<li><code>Options</code> with 23ai sidecar database container for the Options table and data under <b>/options</b></li>
+<li><code>UI</code> single page web app with Bootstrap html and CSS and VueJS scripting under <a href="ui"/>/ui</a></li>
+<li><code>Price</code> with Autonomous Database access for the Price table and data under <a href="price/"/>/price</a></li>
+<li><code>Options</code> with 23ai sidecar database container for the Options table and data under <a href="options/"/>/options</a></li>
 </ul>a
 
 <p>
@@ -12,7 +12,7 @@ The ci/cd pipeline will also:
 <ul>
 <li>Install Oracle <code>Database Operator for Kubernetes</code> to create an ADB instance for the Price database and to get access for it using the database wallet (mutual TLS; thick driver) in the <b>Price</b> microservice</li>
 <li>Create <code>Oracle 23ai database container</code> for the Options database to be run as a sidecar for the <b>Options</b> microservice using it via local TLS (no wallet; thin driver)</li>
-<li>Run a <code>Kubernetes jobs</code> to create both Price and Options database schemas with example data under <b>/adb-job</b></li>
+<li>Run a <code>Kubernetes jobs</code> to create both Price and Options database schemas with example data under  <a href="adb-job/"/>/adb-job/</a></li>
 <li>Create <code>nginx-ingress</code> to access the application from Internet</li>
 </ul>
 
