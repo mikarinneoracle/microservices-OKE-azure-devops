@@ -77,7 +77,7 @@ Multiple vars need to be set for the pipeline to run (with example values):
 ### Prerequisites and tips
 
 <ul>
-<li>Setup <code>instance-principal</code> <b>OCI policies</b> for the Agent and <code>IAM policies</code> for OKE. Any <code>404 error</code> is an indication that a policy is missing.</li>
+<li>Setup <b>OCI policies</b> for the Azure DevOps agent and OKE. Any <code>404 error</code> is an indication that a policy is missing. Agent runs as <code>instance-principal</code>.</li>
 <li>Pipeline does not include the <code>ocirsecret</code> -secret creation for OKE pull operations of OCIR private Docker repos. Create it manually e.g. for the OCIR in FRA:
 <pre>
 kubectl create secret docker-registry ocirsecret --docker-username '&lt;TENANCY_NAMESPACE&gt;/oracleidentitycloudservice/&lt;USER_NAME&gt;'  --docker-password '&lt;USER_PROFILE_AUTH_TOKEN&gt;'  --docker-server 'fra.ocir.io'
