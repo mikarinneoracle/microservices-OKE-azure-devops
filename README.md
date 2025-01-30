@@ -71,16 +71,16 @@ Multiple vars need to be set for the pipeline to run (with example values):
 <li><b>CONTAINER_REPOSITORY_OPTIONS</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-options</li>
 <li><b>CONTAINER_REPOSITORY_ADB_JOB</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-adb-job</li>
 <li><b>OCIR</b>: OCIR registry name e.g. <b>fra.ocir.io</b></li>
-<li><b>OcirPullSecret</b>: OCIR pull secret (see tips below)</li>
+<li><b>OcirPullSecret</b>: OCIR pull secret name e.g. <b>ocirsecret</b>(see tips below)</li>
 </ul>
 
 ### Prerequisites and tips
 
 <ul>
 <li>Setup <code>instance-principal</code> and <code>resource-principal</code> <b>OCI policies</b>. Any <code>404 error</code> is an indication that a policy is missing.</li>
-<li>Pipeline does not include <code>fraocirsecret</code> creation for OCIR operations of private Docker repos. Create it manually e.g. for the OCIR in FRA:
+<li>Pipeline does not include the <code>ocirsecret</code> -secret creation for OKE pull operations of OCIR private Docker repos. Create it manually e.g. for the OCIR in FRA:
 <pre>
-kubectl create secret docker-registry fraocirsecret --docker-username '&lt;TENANCY_NAMESPACE&gt;/oracleidentitycloudservice/&lt;USER_NAME&gt;'  --docker-password '&lt;USER_PROFILE_AUTH_TOKEN&gt;'  --docker-server 'fra.ocir.io'
+kubectl create secret docker-registry ocirsecret --docker-username '&lt;TENANCY_NAMESPACE&gt;/oracleidentitycloudservice/&lt;USER_NAME&gt;'  --docker-password '&lt;USER_PROFILE_AUTH_TOKEN&gt;'  --docker-server 'fra.ocir.io'
 </pre>
 </li>
 <li>Create OCIR repos <i>in advance</i> before running the pipeline under the <b>target compartment</b>, otherwise they will be created automatically under the tenancy root compartment which is not a good idea.</li>
