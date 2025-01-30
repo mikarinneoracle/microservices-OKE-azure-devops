@@ -5,7 +5,7 @@ This Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> example build
 <li><code>UI</code> single page web app with Bootstrap html and CSS and VueJS scripting under <a href="ui"/>/ui</a></li>
 <li><code>Price</code> with Autonomous Database access for the Price table and data under <a href="price/"/>/price</a></li>
 <li><code>Options</code> with 23ai sidecar database container for the Options table and data under <a href="options/"/>/options</a></li>
-</ul>a
+</ul>
 
 <p>
 The ci/cd pipeline will also:
