@@ -71,7 +71,7 @@ Multiple vars need to be set for the pipeline to run (with example values):
 <li><b>CONTAINER_REPOSITORY_OPTIONS</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-options</li>
 <li><b>CONTAINER_REPOSITORY_ADB_JOB</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-adb-job</li>
 <li><b>OCIR</b>: OCIR registry name e.g. <b>fra.ocir.io</b></li>
-<li><b>OcirPullSecret</b>: OCIR pull secret name e.g. <b>ocirsecret</b>(see tips below)</li>
+<li><b>OcirPullSecret</b>: OKE OCIR pull secret name e.g. <b>ocirsecret</b>(see tips below)</li>
 </ul>
 
 ### Prerequisites and tips
