@@ -130,6 +130,7 @@ async function run() {
 
   } catch (err) {
     console.log(err);
+    console.log("Exiting process due to error to restart.");
     process.exit(1); // Restart the job in case of connection error with a non-zero exit status
   } finally {
     if (connection) {
