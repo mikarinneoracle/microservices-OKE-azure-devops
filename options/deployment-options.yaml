@@ -5,7 +5,7 @@ metadata:
   labels:
     app: node-app-options-svc
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: node-app-options-svc
@@ -42,6 +42,7 @@ spec:
             value: "WelcomeFolks123##"
           - name: CONNECT_STRING
             value: "localhost:1521/MYATP"
+          - name: AWAIT
+            value: "120000"
       imagePullSecrets:
       - name: fraocirsecret
-        

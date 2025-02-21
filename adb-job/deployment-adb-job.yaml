@@ -20,6 +20,8 @@ spec:
                 key: admin-password
           - name: CONNECT_STRING
             value: "atp_tp"
+          - name: AWAIT
+            value: "60000"
       restartPolicy: OnFailure
       imagePullSecrets:
       - name: fraocirsecret
