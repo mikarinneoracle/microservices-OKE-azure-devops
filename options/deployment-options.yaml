@@ -37,7 +37,7 @@ spec:
           - name: WALLET_PASSWORD
             value: "WelcomeFolks123##"
         readinessProbe:
-          tcp:
+          tcpSocket:
             port: 1521
           initialDelaySeconds: 10
       - name: setup
