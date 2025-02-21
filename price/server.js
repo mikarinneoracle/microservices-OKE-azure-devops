@@ -93,13 +93,19 @@ app.get('/price/:tier', (req, res) => {
   });
 });
 
+server.on('error', function (err) {
+  console.log(err.message);
+  console.log("Restarting ..");
+  closePoolAndExit();
+});
+
 app.listen(port, () => {
   init();
   console.log(`Price svc listening on port ${port}`);
 });
 
 process
-  .once('SIGTERM', closePoolAndExit)
-  .once('SIGINT',  closePoolAndExit);
+  .once('SIGTERM', closePoolAndExit())
+  .once('SIGINT',  closePoolAndExit());
 
 
