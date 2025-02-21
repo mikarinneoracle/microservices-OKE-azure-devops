@@ -37,6 +37,11 @@ spec:
             value: "WelcomeFolks123##"
           - name: WALLET_PASSWORD
             value: "WelcomeFolks123##"
+        readinessProbe:
+          tcpSocket:
+            port: 1521
+          initialDelaySeconds: 180
+          periodSeconds: 10
       - name: setup
         image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
         env:
