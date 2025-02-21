@@ -179,7 +179,20 @@ steps:
     targetType: 'inline'
     script: |
       ((Get-Content -path adb-job/deployment-adb-job.yaml -Raw) -replace 'ADB_JOB_NAME', 'adb-job-$(Build.BuildId)') | Set-Content -Path adb-job/deployment-adb-job.yaml
-      
+
+- task: KubernetesManifest@0
+  displayName: 'Run ADB job in OKE'
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+    manifests: |
+      $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml
+    imagePullSecrets: |
+      $(OcirPullSecret)
+    containers: |
+      $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
+
+
 - task: KubernetesManifest@0
   displayName: 'Setup secret'
   inputs: 
@@ -205,18 +218,6 @@ steps:
       $(OCIR)/$(CONTAINER_REPOSITORY_UI):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_PRICE):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_OPTIONS):$(Build.BuildNumber)
-      $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
-
-- task: KubernetesManifest@0
-  displayName: 'Run DB jobs in OKE'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml
-    imagePullSecrets: |
-      $(OcirPullSecret)
-    containers: |
       $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
 
 - task: KubernetesManifest@0
