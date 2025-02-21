@@ -1,11 +1,9 @@
 const express = require('express');
 const oracledb = require('oracledb');
-const http = require('http');
-const app = express();
-const server = http.createServer(app);
-const port = 8080;
-
 oracledb.initOracleClient({ libDir: '/instantclient_23_3', configDir: '/instantclient_23_3/network/admin/' });
+
+const app = express();
+const port = 8080;
 
 const password = process.env.ATP_PWD;
 console.log('atp password:' + password);
@@ -17,7 +15,7 @@ async function init() {
     await oracledb.createPool({
       user: "admin",
       password: password,
-      connectString: "atp_tp",
+      connectString: "localhost:1521/MYATP",
       // edition: 'ORA$BASE', // used for Edition Based Redefintion
       // events: false, // whether to handle Oracle Database FAN and RLB events or support CQN
       // externalAuth: false, // whether connections should be established using External Authentication
@@ -39,7 +37,7 @@ async function init() {
   } catch (err) {
     console.log('init() error: ' + err.message);
   }
-}
+} 
 
 async function getPrice(tier) {
   let connection;
@@ -94,19 +92,14 @@ app.get('/price/:tier', (req, res) => {
   });
 });
 
-server.on('error', function (err) {
-  console.log(err);
-  console.log("Restarting ..");
+app.listen(port, () => {
+  init();
+  console.log(`Price svc listening on port ${port}`);
+}).on('error', function (err) {
+  console.log(err.message);
   closePoolAndExit();
 });
 
-server.listen(port, () => {
-  init();
-  console.log(`Price svc listening on port ${port}`);
-});
-
 process
-  .once('SIGTERM', closePoolAndExit())
-  .once('SIGINT',  closePoolAndExit());
-
-
+  .once('SIGTERM', closePoolAndExit)
+  .once('SIGINT',  closePoolAndExit);

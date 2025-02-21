@@ -1,8 +1,7 @@
 const express = require('express');
 const oracledb = require('oracledb');
-const http = require('http');
+
 const app = express();
-const server = http.createServer(app);
 const port = 8080;
 
 const password = process.env.ATP_PWD;
@@ -90,17 +89,14 @@ app.get('/options/:tier', (req, res) => {
   });
 });
 
-server.on('error', function (err) {
-  console.log(err);
-  console.log("Restarting ..");
+app.listen(port, () => {
+  init();
+  console.log(`Options svc listening on port ${port}`);
+}).on('error', function (err) {
+  console.log(err.message);
   closePoolAndExit();
 });
 
-server.listen(port, () => {
-  init();
-  console.log(`Options svc listening on port ${port}`);
-});
-
 process
-  .once('SIGTERM', closePoolAndExit())
-  .once('SIGINT',  closePoolAndExit());
+  .once('SIGTERM', closePoolAndExit)
+  .once('SIGINT',  closePoolAndExit);
