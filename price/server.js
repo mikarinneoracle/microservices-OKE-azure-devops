@@ -95,7 +95,7 @@ app.get('/price/:tier', (req, res) => {
 });
 
 server.on('error', function (err) {
-  console.log(err.message);
+  console.log(err);
   console.log("Restarting ..");
   closePoolAndExit();
 });
