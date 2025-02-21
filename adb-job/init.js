@@ -30,15 +30,7 @@ async function run() {
 
       `TRUNCATE TABLE PRICE`,
 
-      `DROP INDEX OPTIONS_CON_TIER_UNIQUE`,
-  
-      `DROP INDEX OPTIONS_PK`,
-
       `DROP TABLE OPTIONS`,
-
-      `DROP INDEX PRICE_CON_TIER_UNIQUE`,
-
-      `DROP INDEX PRICE_PK`,
 
       `DROP TABLE PRICE`,
 
