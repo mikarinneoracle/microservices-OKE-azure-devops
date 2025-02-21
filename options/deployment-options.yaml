@@ -43,6 +43,6 @@ spec:
           - name: CONNECT_STRING
             value: "localhost:1521/MYATP"
           - name: AWAIT
-            value: "120000"
+            value: "10000"
       imagePullSecrets:
       - name: fraocirsecret
