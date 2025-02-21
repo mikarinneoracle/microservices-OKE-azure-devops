@@ -1,8 +1,8 @@
 const express = require('express');
 const oracledb = require('oracledb');
-
+const http = require('http');
 const app = express();
-var server = http.createServer(app);
+const server = http.createServer(app);
 const port = 8080;
 
 oracledb.initOracleClient({ libDir: '/instantclient_23_3', configDir: '/instantclient_23_3/network/admin/' });

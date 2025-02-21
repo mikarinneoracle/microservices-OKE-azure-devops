@@ -1,8 +1,8 @@
 const express = require('express');
 const oracledb = require('oracledb');
-
+const http = require('http');
 const app = express();
-var server = http.createServer(app);
+const server = http.createServer(app);
 const port = 8080;
 
 const password = process.env.ATP_PWD;
