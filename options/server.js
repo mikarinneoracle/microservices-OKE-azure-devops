@@ -2,7 +2,7 @@ const express = require('express');
 const oracledb = require('oracledb');
 
 const app = express();
-const port = 8080;
+const port = 8000;
 
 const password = process.env.ATP_PWD;
 console.log('atp password:' + password);

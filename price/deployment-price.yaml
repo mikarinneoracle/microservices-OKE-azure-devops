@@ -19,7 +19,7 @@ spec:
         image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
         volumeMounts:
             - name: secret-volume
               mountPath: /instantclient_23_3/network/admin

@@ -14,18 +14,18 @@ spec:
             service:
               name: ui-clusterip
               port:
-                number: 8080
+                number: 8000
         - path: /price
           pathType: Prefix
           backend:
             service:
               name: price-clusterip
               port:
-                number: 8080
+                number: 8000
         - path: /options
           pathType: Prefix
           backend:
             service:
               name: options-clusterip
               port:
-                number: 8080
+                number: 8000

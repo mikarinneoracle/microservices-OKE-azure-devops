@@ -19,7 +19,7 @@ spec:
         image: fra.ocir.io/frsxwtjslf35/azure-test-options:1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
         env:
           - name: ATP_PWD
             value: "WelcomeFolks123##"

@@ -3,7 +3,7 @@ const oracledb = require('oracledb');
 oracledb.initOracleClient({ libDir: '/instantclient_23_3', configDir: '/instantclient_23_3/network/admin/' });
 
 const app = express();
-const port = 8080;
+const port = 8000;
 
 const password = process.env.ATP_PWD;
 console.log('atp password:' + password);
