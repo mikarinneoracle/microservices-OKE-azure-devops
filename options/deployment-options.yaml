@@ -49,5 +49,7 @@ spec:
             value: "WelcomeFolks123##"
           - name: CONNECT_STRING
             value: "localhost:1521/MYATP"
+          - name: AWAIT
+            value: "240000"
       imagePullSecrets:
       - name: fraocirsecret

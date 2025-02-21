@@ -2,8 +2,21 @@ const oracledb = require('oracledb');
 
 oracledb.initOracleClient({ libDir: '/instantclient_23_3', configDir: '/instantclient_23_3/network/admin/' });
 
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
 async function run() {
   let connection;
+
+  // Let's wait for X seconds before we execute this
+  let delay = process.env.AWAIT ? process.env.AWAIT : 0;
+  let i = 0;
+  console.log("Delaying execution " + (process.env.AWAIT ? process.env.AWAIT : 0) + " milliseconds ..");
+  while(i < delay / 1000)
+  {
+    await sleep(1000);
+    i++;
+    console.log(i + " seconds ..");
+  }
 
   const config = {
     user: "admin",
