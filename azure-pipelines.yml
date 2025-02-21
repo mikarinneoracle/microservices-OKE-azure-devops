@@ -173,6 +173,15 @@ steps:
     repository: '$(CONTAINER_REPOSITORY_OPTIONS)'
     tags: $(Build.BuildNumber)
 
+- task: KubernetesManifest@0
+  displayName: 'Setup secret'
+  inputs: 
+    action: 'createSecret'
+    secretType: 'dockerRegistry'
+    secretName: '$(OcirPullSecret)'
+    dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
+    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
+
 - task: PowerShell@2
   displayName: 'Setup ADB job yaml'
   inputs:
@@ -191,16 +200,6 @@ steps:
       $(OcirPullSecret)
     containers: |
       $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
-
-
-- task: KubernetesManifest@0
-  displayName: 'Setup secret'
-  inputs: 
-    action: 'createSecret'
-    secretType: 'dockerRegistry'
-    secretName: '$(OcirPullSecret)'
-    dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
 
 - task: KubernetesManifest@0
   displayName: 'Deploy containers to OKE'

@@ -15,15 +15,6 @@ spec:
         app: node-app-options-svc
     spec:
       containers:
-      - name: app
-        image: fra.ocir.io/frsxwtjslf35/azure-test-options:1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-        env:
-          - name: ATP_PWD
-            value: "WelcomeFolks123##"
-      initContainers:
       - name: db
         image: fra.ocir.io/frsxwtjslf35/azure-test-23ai:1
         imagePullPolicy: Always
@@ -36,6 +27,15 @@ spec:
             value: "WelcomeFolks123##"
           - name: WALLET_PASSWORD
             value: "WelcomeFolks123##"
+      - name: app
+        image: fra.ocir.io/frsxwtjslf35/azure-test-options:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ATP_PWD
+            value: "WelcomeFolks123##"
+      initContainers:
       - name: setup
         image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
         env:
@@ -44,6 +44,6 @@ spec:
           - name: CONNECT_STRING
             value: "localhost:1521/MYATP"
           - name: AWAIT
-            value: "10000"
+            value: "240000"
       imagePullSecrets:
       - name: fraocirsecret
