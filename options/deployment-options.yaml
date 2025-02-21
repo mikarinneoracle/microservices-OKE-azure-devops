@@ -37,3 +37,12 @@ spec:
             value: "WelcomeFolks123##"
       imagePullSecrets:
       - name: fraocirsecret
+      initContainers:
+      - name: db-setup
+        image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
+        env:
+          - name: ATP_PWD
+            value: "WelcomeFolks123##"
+          - name: CONNECT_STRING
+            value: "localhost:1521/MYATP"
+        

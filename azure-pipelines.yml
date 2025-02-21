@@ -215,7 +215,6 @@ steps:
     manifests: |
       $(System.DefaultWorkingDirectory)/adb-job/db23ai-clusterip.yaml
       $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml
-      $(System.DefaultWorkingDirectory)/adb-job/deployment-db23ai-job.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
