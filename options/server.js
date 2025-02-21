@@ -2,6 +2,7 @@ const express = require('express');
 const oracledb = require('oracledb');
 
 const app = express();
+var server = http.createServer(app);
 const port = 8080;
 
 const password = process.env.ATP_PWD;
@@ -95,7 +96,7 @@ server.on('error', function (err) {
   closePoolAndExit();
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   init();
   console.log(`Options svc listening on port ${port}`);
 });

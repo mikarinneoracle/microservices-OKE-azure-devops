@@ -2,6 +2,7 @@ const express = require('express');
 const oracledb = require('oracledb');
 
 const app = express();
+var server = http.createServer(app);
 const port = 8080;
 
 oracledb.initOracleClient({ libDir: '/instantclient_23_3', configDir: '/instantclient_23_3/network/admin/' });
@@ -99,7 +100,7 @@ server.on('error', function (err) {
   closePoolAndExit();
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   init();
   console.log(`Price svc listening on port ${port}`);
 });
