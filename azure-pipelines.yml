@@ -206,6 +206,7 @@ steps:
       $(OCIR)/$(CONTAINER_REPOSITORY_UI):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_PRICE):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_OPTIONS):$(Build.BuildNumber)
+      $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
 
 - task: KubernetesManifest@0
   displayName: 'Run DB jobs in OKE'
@@ -213,7 +214,6 @@ steps:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
-      $(System.DefaultWorkingDirectory)/adb-job/db23ai-clusterip.yaml
       $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
