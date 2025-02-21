@@ -11,8 +11,8 @@ This Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> example build
 The ci/cd pipeline will also:
 <ul>
 <li>Install Oracle <code>Database Operator for Kubernetes</code> to create an ADB instance for the Price database and to get access for it using the database wallet (mutual TLS; thick driver) in the <b>Price</b> microservice</li> under <a href="adb-operator/"/>/adb-operator</a>
-<li>Create <code>Oracle 23ai database container</code> for the Options database to be run as a sidecar for the <b>Options</b> microservice using it via local TLS (no wallet; thin driver) under <a href="options/"/>/options</a></li>
-<li>Run a <code>Kubernetes jobs</code> to create both Price and Options database schemas with example data under <a href="adb-job/"/>/adb-job</a></li>
+<li>Run a <code>Kubernetes job</code> to create Price schemas with example data under <a href="adb-job/"/>/adb-job</a> This keeps trying (via restarts) until ADB is up and running the job can connect succesfully to it.</li>
+<li>Create <code>Oracle 23ai database container</code> for the Options database to be run as a sidecar for the <b>Options</b> microservice using it via local TLS (no wallet; thin driver) under <a href="options/"/>/options</a> 23ai database sidecar will be created using deployment <code>initContainers</code> and using <a href="adb-job/"/>/adb-job</a> sidecar schema will be created and data inserted to it. This keeps trying (via restarts) until 23ai sidecar is up and running the sidecar can connect succesfully to it.</li>
 <li>Create <code>nginx-ingress</code> to access the application from Internet under <a href="ingress-nginx/"/>/ingress-nginx</a></li>
 </ul>
 
@@ -43,19 +43,6 @@ Also, add the Terraform statefile PAR to the pipeline variables as it is used to
 Application will look like this:
 <p>
 <img src="files/ui.jpg" width="600" />
-
-### Deployment Kubernetes jobs for databases
-
-The Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> will first create an ADB cloud instance (if it does not already exist) and then deploy ADB (23ai database) as a sidecar pod. Then, the 2 Kubernetes jobs to create the ADB schemas and data for these are run until they are completed. 
-<p>
-The cloud ADB instance job usually is completed within the first attempt, but the since ADB sidecar creation takes longer it usually requires 3-4 attempts once the job has been completed. Something like this will show up in the OKE cluster with kubectl:
-
-<p>
-<img src="files/deployment_jobs_running.png" width="600" />
-
-Eventually, once the jobs are completed, it will look something like this:
-<p>
-<img src="files/deployment_completed.png" width="600" />
 
 ### Pipeline vars
 
