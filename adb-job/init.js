@@ -8,6 +8,7 @@ async function run() {
   let connection;
 
   // Let's wait for X seconds before we execute this
+  console.log("Delaying execution " + (process.env.AWAIT ? process.env.AWAIT : 0) + " milliseconds ..");
   await sleep(process.env.AWAIT ? process.env.AWAIT : 0);
 
   const config = {
