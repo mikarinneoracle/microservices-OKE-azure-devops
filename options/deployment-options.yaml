@@ -27,6 +27,7 @@ spec:
       - name: db
         image: fra.ocir.io/frsxwtjslf35/azure-test-23ai:1
         imagePullPolicy: Always
+        restartPolicy: Always
         ports:
         - containerPort: 1521
         env:
