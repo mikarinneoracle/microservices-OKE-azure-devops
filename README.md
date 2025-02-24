@@ -38,7 +38,8 @@ Also, add the Terraform statefile PAR to the pipeline variables as it is used to
 <li>An <code>instance-principal OCI Policy</code> is needed for OKE to manage the ADB resources including the wallet secret volume (created by the database operator) that is created manually (at the moment not part of the Terraform above). More about using the wallet with the Oracle database operator in this blog: https://medium.com/@mika.rinne/easy-oracle-autonomous-db-access-for-nodejs-with-kubernetes-operator-cf02ea7fc59a</li>
 <li>Azure DevOps <code>service connections</code> for OKE and OCI Container Registry (OCIR) are created manually using this example repo: https://github.com/oracle-devrel/technology-engineering/tree/main/app-dev/devops-and-containers/devops/azure-devops-oke</li>
 </ul>
-
+<p>
+Please note that I found out that the default 50MB of disk is a bit on the low side for the deployments to run smoothly with the 23ai side car, so I recommend adjusting disk to <code>200MB</code> on the worker nodes in <b>oke.yaml</b>
 <p>
 Application will look like this:
 <p>
