@@ -96,8 +96,8 @@ async function run() {
     sql = `INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES (:1, :2, :3, :4, :5)`;
     binds = [
       ['FREE', 0, 1, 10, 'Email'],
-      ['PRO', 100, 15, 200, 'Priority Email'],
-      ['ENTERPRISE', 1500, 1000, 50000, 'Phone and Email']
+      ['PRO', 10, 15, 200, 'Priority Email'],
+      ['ENTERPRISE', 150, 1000, 50000, 'Phone and Email']
     ];
     options = {
       autoCommit: true,
@@ -115,9 +115,9 @@ async function run() {
 
     sql = `INSERT INTO OPTIONS (TIER, ISPUBLIC, ISPRIVATE, ISPERMISSIONS, ISSHARING, ISUNLIMITED, ISEXTRASEC) VALUES (:1, :2, :3, :4, :5, :6, :7)`;
     binds = [
-      ['FREE', 'N', 'N', 'Y', 'N', 'N', 'N'],
-      ['PRO', 'N', 'Y', 'Y', 'Y', 'Y', 'N'],
-      ['ENTERPRISE', 'N', 'Y', 'Y', 'Y', 'Y', 'Y']
+      ['FREE', 'Y', 'N', 'Y', 'N', 'N', 'N'],
+      ['PRO', 'Y', 'Y', 'Y', 'Y', 'Y', 'N'],
+      ['ENTERPRISE', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y']
     ];
     options = {
       autoCommit: true,
