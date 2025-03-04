@@ -96,8 +96,8 @@ async function run() {
     sql = `INSERT INTO PRICE (TIER, PRICE_MO, USERS, STORAGE, SUPPORT) VALUES (:1, :2, :3, :4, :5)`;
     binds = [
       ['FREE', 0, 1, 10, 'Email'],
-      ['PRO', 50, 15, 200, 'Priority Email'],
-      ['ENTERPRISE', 200, 1000, 50000, 'Phone and Email']
+      ['PRO', 10, 15, 200, 'Priority Email'],
+      ['ENTERPRISE', 99, 1000, 50000, 'Phone and Email']
     ];
     options = {
       autoCommit: true,
