@@ -47,4 +47,4 @@ spec:
           - name: AWAIT
             value: "180000"
       imagePullSecrets:
-      - name: fraocirsecret
+      - name: ocirsecret
