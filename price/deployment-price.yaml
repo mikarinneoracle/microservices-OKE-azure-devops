@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: fra.ocir.io/frsxwtjslf35/azure-test-price:1
+        image: OCIR/NAMESPACE/azure-test-price:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8000

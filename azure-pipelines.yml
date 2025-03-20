@@ -124,16 +124,6 @@ steps:
     containerRegistry: '$(CONTAINER_REGISTRY)'
 
 - task: Docker@2
-  displayName: 'Build & Push 23ai Image $(Build.BuildNumber)'
-  inputs:
-    command: buildAndPush
-    buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '$(System.DefaultWorkingDirectory)/options/Dockerfile-23ai'
-    containerRegistry: '$(CONTAINER_REGISTRY)'
-    repository: '$(CONTAINER_REPOSITORY_23ai)'
-    tags: $(Build.BuildNumber)
-
-- task: Docker@2
   displayName: 'Build & Push ADB Job Image $(Build.BuildNumber)'
   inputs:
     command: buildAndPush
@@ -183,6 +173,17 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
 
 - task: PowerShell@2
+  displayName: 'Setup OCIR for yamls'
+  inputs:
+    targetType: 'inline'
+    script: |
+      ((Get-Content -path $(System.DefaultWorkingDirectory)/ui/deployment-ui.yaml -Raw) -replace 'OCIR/NAMESPACE', '$(OCIR)/$(NAMESPACE)') | Set-Content -Path $(System.DefaultWorkingDirectory)/ui/deployment-ui.yaml
+      ((Get-Content -path $(System.DefaultWorkingDirectory)/price/deployment-price.yaml -Raw) -replace 'OCIR/NAMESPACE', '$(OCIR)/$(NAMESPACE)') | Set-Content -Path $(System.DefaultWorkingDirectory)/price/deployment-price.yaml
+      ((Get-Content -path $(System.DefaultWorkingDirectory)/options/deployment-options.yaml -Raw) -replace 'OCIR/NAMESPACE', '$(OCIR)/$(NAMESPACE)') | Set-Content -Path $(System.DefaultWorkingDirectory)/options/deployment-options.yaml
+      ((Get-Content -path $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml -Raw) -replace 'OCIR/NAMESPACE', '$(OCIR)/$(NAMESPACE)') | Set-Content -Path $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml
+      Get-Content -path $(System.DefaultWorkingDirectory)/options/deployment-options.yaml
+
+- task: PowerShell@2
   displayName: 'Setup ADB job yaml'
   inputs:
     targetType: 'inline'
@@ -213,7 +214,6 @@ steps:
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
-      $(OCIR)/$(CONTAINER_REPOSITORY_23ai):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_UI):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_PRICE):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_OPTIONS):$(Build.BuildNumber)

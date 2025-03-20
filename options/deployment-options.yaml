@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: fra.ocir.io/frsxwtjslf35/azure-test-options:1
+        image: OCIR/NAMESPACE/azure-test-options:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -25,7 +25,7 @@ spec:
             value: "WelcomeFolks123##"
       initContainers:
       - name: db
-        image: fra.ocir.io/frsxwtjslf35/azure-test-23ai:1
+        image: container-registry.oracle.com/database/adb-free:latest-23ai
         imagePullPolicy: Always
         restartPolicy: Always
         ports:
@@ -38,7 +38,7 @@ spec:
           - name: WALLET_PASSWORD
             value: "WelcomeFolks123##"
       - name: setup
-        image: fra.ocir.io/frsxwtjslf35/azure-test-adb-job:1
+        image: OCIR/NAMESPACE/azure-test-adb-job:1
         env:
           - name: ATP_PWD
             value: "WelcomeFolks123##"
