@@ -201,7 +201,7 @@ steps:
     containers: |
       $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
 
-- task: KubernetesManifest@1
+- task: KubernetesManifest@0
   displayName: 'Deploy containers to OKE'
   inputs:
     action: 'deploy'
@@ -213,11 +213,11 @@ steps:
     imagePullSecrets: |
       $(OcirPullSecret)
     containers: |
+      $(OCIR)/$(CONTAINER_REPOSITORY_23ai):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_UI):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_PRICE):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_OPTIONS):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
-#      $(OCIR)/$(CONTAINER_REPOSITORY_23ai):$(Build.BuildNumber)
 
 - task: KubernetesManifest@0
   displayName: 'Deploy Ingress'
