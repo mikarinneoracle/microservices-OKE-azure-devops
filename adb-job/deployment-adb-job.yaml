@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: ADB_JOB_NAME
-        image: OCIR/NAMESPACE/frsxwtjslf35/azure-test-adb-job:1
+        image: OCIR/NAMESPACE/azure-test-adb-job:1
         imagePullPolicy: Always
         volumeMounts:
             - name: secret-volume
