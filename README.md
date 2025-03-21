@@ -66,7 +66,9 @@ Multiple vars need to be set for the pipeline to run (with example values):
 ### Prerequisites and tips
 
 <ul>
-<li>Setup <b>OCI policies</b> for the Azure DevOps agent and OKE. Any <code>404 error</code> is an indication that a policy is missing. Agent runs as <code>instance-principal</code>.</li>
+<li>Setup <b>instance-principal OCI policies</b> for the Azure DevOps agent and OKE. Any <code>404 error</code> is an indication that a policy is missing. Agent runs as <code>instance-principal</code>.
+
+</li>
 </li>
 <li>Create OCIR repos <i>in advance</i> before running the pipeline under the <b>target compartment</b>, otherwise they will be created automatically under the tenancy root compartment which is not a good idea.</li>
 <li>Install Oracle Database Operator for Kubernetes to OKE cluster as cluster add-on from OCI Console.</li>
