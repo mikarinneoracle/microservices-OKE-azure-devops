@@ -72,5 +72,5 @@ Multiple vars need to be set for the pipeline to run (with example values):
 </li>
 <li>Create OCIR repos <i>in advance</i> before running the pipeline under the <b>target compartment</b>, otherwise they will be created automatically under the tenancy root compartment which is not a good idea.</li>
 <li>Install Oracle Database Operator for Kubernetes to OKE cluster as cluster add-on from OCI Console.</li>
-<li>If issues creating the ingress, download the latest ingress YAML by following <a href="https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm">these instructions</a> and replace <a href="./ingress-nginx/nginx-ingress.yaml">nginx-ingress.yaml contents with it.
+<li>If issues creating the ingress, download the latest ingress YAML by following <a href="https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm">these instructions</a> and replace <a href="./ingress-nginx/nginx-ingress.yaml">nginx-ingress.yaml</a> YAML with it.
 </ul>
