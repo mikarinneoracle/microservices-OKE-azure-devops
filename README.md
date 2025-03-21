@@ -10,8 +10,8 @@ This Azure DevOps <a href="azure-pipelines.yml">ci/cd pipeline</a> example build
 <p>
 The ci/cd pipeline will also:
 <ul>
-<li>Install Oracle <code>Database Operator for Kubernetes</code> to create an ADB instance for the Price database and to get access for it using the database wallet (mutual TLS; thick driver) in the <b>Price</b> microservice</li> under <a href="adb-operator/"/>/adb-operator</a>
-<li>Run a <code>Kubernetes job</code> to create Price schemas with example data under <a href="adb-job/"/>/adb-job</a> This keeps trying (via restarts) until ADB is up and running the job can connect succesfully to it.</li>
+<li>Create an ADB instance for the Price database and to get access for it using the database wallet (mutual TLS; thick driver) in the <b>Price</b> microservice</li> under <a href="adb/"/>/adb-operator</a>
+<li>Run a <code>Kubernetes job</code> to create Price schemas with example data under <a href="adb-job/"/>/adb-job</a> This keeps trying (via restarts) until ADB is up and running the job can connect succesfully to it. <i>The prereq is that <b>Oracle Database Operator for Kubernetes</b> is installed in the OKE cluster which can be done as cluster add-on from OCI Console</i>.</li>
 <li>Create <code>Oracle 23ai database container</code> for the Options database to be run as a sidecar for the <b>Options</b> microservice using it via local TLS (no wallet; thin driver) under <a href="options/"/>/options</a>. 23ai database sidecar will be created using deployment <code>initContainers</code> and <a href="adb-job/"/>/adb-job</a> sidecar will create the schema and data to it. This keeps trying (via restarts) until 23ai sidecar is up and running the sidecar can connect succesfully to it.</li>
 <li>Create <code>nginx-ingress</code> to access the application from Internet under <a href="ingress-nginx/"/>/ingress-nginx</a></li>
 </ul>
@@ -69,4 +69,5 @@ Multiple vars need to be set for the pipeline to run (with example values):
 <li>Setup <b>OCI policies</b> for the Azure DevOps agent and OKE. Any <code>404 error</code> is an indication that a policy is missing. Agent runs as <code>instance-principal</code>.</li>
 </li>
 <li>Create OCIR repos <i>in advance</i> before running the pipeline under the <b>target compartment</b>, otherwise they will be created automatically under the tenancy root compartment which is not a good idea.</li>
+<li>Install Oracle Database Operator for Kubernetes to OKE cluster as cluster add-on from OCI Console.</li>
 </ul>
