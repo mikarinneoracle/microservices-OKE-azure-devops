@@ -13,7 +13,7 @@ steps:
     script: |
       ((Get-Content -path adb/deployment-adb.yaml -Raw) -replace 'ADB_COMPARTMENT_OCID', '$(COMPARTMENT)') | Set-Content -Path adb/deployment-adb.yaml
 
-- task: KubernetesManifest@0
+- task: KubernetesManifest@1
   displayName: 'Deploy ADB'
   inputs:
     action: 'deploy'
@@ -100,7 +100,7 @@ steps:
     repository: '$(CONTAINER_REPOSITORY_OPTIONS)'
     tags: $(Build.BuildNumber)
 
-- task: KubernetesManifest@0
+- task: KubernetesManifest@1
   displayName: 'Setup secret'
   inputs: 
     action: 'createSecret'
@@ -127,7 +127,7 @@ steps:
     script: |
       ((Get-Content -path adb-job/deployment-adb-job.yaml -Raw) -replace 'ADB_JOB_NAME', 'adb-job-$(Build.BuildId)') | Set-Content -Path adb-job/deployment-adb-job.yaml
 
-- task: KubernetesManifest@0
+- task: KubernetesManifest@1
   displayName: 'Run ADB job in OKE'
   inputs:
     action: 'deploy'
@@ -139,7 +139,7 @@ steps:
     containers: |
       $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
 
-- task: KubernetesManifest@0
+- task: KubernetesManifest@1
   displayName: 'Deploy containers to OKE'
   inputs:
     action: 'deploy'
@@ -156,7 +156,7 @@ steps:
       $(OCIR)/$(CONTAINER_REPOSITORY_OPTIONS):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
 
-- task: KubernetesManifest@0
+- task: KubernetesManifest@1
   displayName: 'Deploy Ingress'
   inputs:
     action: 'deploy'
@@ -165,7 +165,7 @@ steps:
     manifests: |
       $(System.DefaultWorkingDirectory)/ingress-nginx/nginx-ingress.yaml
 
-- task: KubernetesManifest@0
+- task: KubernetesManifest@1
   displayName: 'Deploy Ingress Routes to Node app'
   inputs:
     action: 'deploy'
