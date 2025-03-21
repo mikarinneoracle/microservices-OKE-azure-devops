@@ -60,7 +60,7 @@ Multiple vars need to be set for the pipeline to run (with example values):
 <li><b>CONTAINER_REPOSITORY_ADB_JOB</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-adb-job</li>
 <li><b>OCIR</b>: OCIR registry name e.g. <b>fra.ocir.io</b></li>
 <li><b>NAMESPACE</b>: Tenancy namespace, to get it with oci cli do <b>oci os ns get</b></li>
-<li><b>OcirPullSecret</b>: OKE OCIR pull secret name exactly as <b>ocirsecret</b></li>
+<li><b>OcirPullSecret</b>: OKE OCIR pull secret name e.g. <b>ocirsecret</b></li>
 </ul>
 
 ### Prerequisites and tips
