@@ -97,7 +97,7 @@ async function run() {
     binds = [
       ['FREE', 0, 1, 10, 'Email'],
       ['PRO', 10, 15, 200, 'Priority Email'],
-      ['ENTERPRISE', 99, 1000, 50000, 'Phone and Email']
+      ['ENTERPRISE', 500, 1000, 50000, 'Phone and Email']
     ];
     options = {
       autoCommit: true,
