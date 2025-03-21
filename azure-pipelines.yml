@@ -6,75 +6,12 @@ pool:
 
 steps:
 
-- task: KubernetesManifest@0
-  displayName: 'Deploy Cert Manager 1/5'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: 'cert-manager'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/adb-operator/cert-manager/cert-manager-1.yaml
-
-- task: KubernetesManifest@0
-  displayName: 'Deploy Cert Manager 2/5'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: 'kube-system'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/adb-operator/cert-manager/cert-manager-2.yaml
-
-- task: KubernetesManifest@0
-  displayName: 'Deploy Cert Manager 3/5'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: 'cert-manager'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/adb-operator/cert-manager/cert-manager-3.yaml
-      
-- task: KubernetesManifest@0
-  displayName: 'Deploy Cert Manager 4/5'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: 'kube-system'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/adb-operator/cert-manager/cert-manager-4.yaml
-
-- task: KubernetesManifest@0
-  displayName: 'Deploy Cert Manager 5/5'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: 'cert-manager'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/adb-operator/cert-manager/cert-manager-5.yaml
-
-- task: KubernetesManifest@0
-  displayName: 'Deploy ADB cluster role binding'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: 'oracle-database-operator-system'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/adb-operator/ADB-cluster-role-binding.yaml
-
 - task: PowerShell@2
   displayName: 'Setup ADB yaml'
   inputs:
     targetType: 'inline'
     script: |
-      ((Get-Content -path adb-operator/deployment-adb.yaml -Raw) -replace 'ADB_COMPARTMENT_OCID', '$(COMPARTMENT)') | Set-Content -Path adb-operator/deployment-adb.yaml
-
-- task: KubernetesManifest@0
-  displayName: 'Deploy ADB operator'
-  inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
-    namespace: 'oracle-database-operator-system'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/adb-operator/ADB-operator.yaml
+      ((Get-Content -path adb/deployment-adb.yaml -Raw) -replace 'ADB_COMPARTMENT_OCID', '$(COMPARTMENT)') | Set-Content -Path adb/deployment-adb.yaml
 
 - task: KubernetesManifest@0
   displayName: 'Deploy ADB'
@@ -82,8 +19,8 @@ steps:
     action: 'deploy'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     manifests: |
-      $(System.DefaultWorkingDirectory)/adb-operator/secrets-adb.yaml
-      $(System.DefaultWorkingDirectory)/adb-operator/deployment-adb.yaml
+      $(System.DefaultWorkingDirectory)/adb/secrets-adb.yaml
+      $(System.DefaultWorkingDirectory)/adb/deployment-adb.yaml
 
 - task: PowerShell@2
   displayName: 'Download Oracle instaclient'
