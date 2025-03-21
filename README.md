@@ -50,7 +50,7 @@ Application will look like this:
 Multiple vars need to be set for the pipeline to run (with example values):
 
 <ul>
-<li><b>COMPARTMENT</b>:ocid1.compartment.oc1..aaaaaaaa...qgq</li>
+<li><b>COMPARTMENT</b>: ocid1.compartment.oc1..aaaaaaaa...qgq</li>
 <li><b>K8S_CONNECTION_NAME</b>: OKE cluster Azure pipelines <b>service connection</b> name</li>
 <li><b>CONTAINER_REGISTRY</b>: OCI Registry (OCIR) Azure pipelines <b>service connection</b> name</li>
 <li><b>CONTAINER_REPOSITORY_23ai</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-23ai</li>
