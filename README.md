@@ -34,7 +34,7 @@ Also, add the Terraform statefile PAR to the pipeline variables as it is used to
 </ol>
 
 <p>
-<img src="files/arch.png" width="600" />
+<img src="files/arch.png" width="1000" />
 <p>
 
 </li>
