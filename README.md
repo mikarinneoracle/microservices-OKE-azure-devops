@@ -47,7 +47,7 @@ Please note that I found out that the default 50MB of disk is a bit on the low s
 <p>
 Application will look like this:
 <p>
-<img src="files/ui.jpg" width="600" />
+<img src="files/ui.jpg" width="600" align="center" />
 
 ### Pipeline vars
 
