@@ -166,7 +166,7 @@ steps:
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
     namespace: 'ingress-nginx'
     manifests: |
-      $(System.DefaultWorkingDirectory)/ingress-nginx/nginx-ingress-1.12.0.yaml
+      $(System.DefaultWorkingDirectory)/ingress-nginx/nginx-ingress-1.12.1.yaml
 
 - task: KubernetesManifest@1
   displayName: 'Deploy Ingress Routes to Node app'
