@@ -57,11 +57,6 @@ Multiple vars need to be set for the pipeline to run (with example values):
 <li><b>COMPARTMENT</b>: ocid1.compartment.oc1..aaaaaaaa...qgq</li>
 <li><b>K8S_CONNECTION_NAME</b>: OKE cluster Azure pipelines <b>service connection</b> name</li>
 <li><b>CONTAINER_REGISTRY</b>: OCI Registry (OCIR) Azure pipelines <b>service connection</b> name</li>
-<li><b>CONTAINER_REPOSITORY_23ai</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-23ai</li>
-<li><b>CONTAINER_REPOSITORY_UI</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-ui</li>
-<li><b>CONTAINER_REPOSITORY_PRICE</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-price</li>
-<li><b>CONTAINER_REPOSITORY_OPTIONS</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-options</li>
-<li><b>CONTAINER_REPOSITORY_ADB_JOB</b>: &lt;TENANCY_NAMESPACE&gt;/azure-test-adb-job</li>
 <li><b>OCIR</b>: OCIR registry name e.g. <b>fra.ocir.io</b></li>
 <li><b>NAMESPACE</b>: Tenancy namespace, to get it with oci cli do <b>oci os ns get</b></li>
 </ul>
@@ -73,7 +68,14 @@ Multiple vars need to be set for the pipeline to run (with example values):
 
 </li>
 </li>
-<li>Create OCIR repos <i>in advance</i> before running the pipeline under the <b>target compartment</b>, otherwise they will be created automatically under the tenancy root compartment which is not a good idea.</li>
+<li>Create following OCIR repos <i>in advance</i> <b><i>before</i></b> running the pipeline under the <b>target compartment</b>, otherwise they will be created automatically under the tenancy root compartment which is not a good idea:
+    <ul>
+    <li>azure-test-ui</li>
+    <li>azure-test-price</li>
+    <li>azure-test-options</li>
+    <li>azure-test-adb-job</li>
+    </ul>
+</li>
 <li>Install Oracle Database Operator for Kubernetes to OKE cluster as cluster add-on from OCI Console.</li>
 <li>If issues creating the ingress, download the latest ingress YAML by following <a href="https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm">these instructions</a> and replace <a href="./ingress-nginx/nginx-ingress-1.12.1.yaml">nginx-ingress-1.12.1.yaml</a> YAML with it.
 </ul>
