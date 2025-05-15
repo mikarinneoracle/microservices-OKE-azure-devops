@@ -152,10 +152,10 @@ steps:
       ocirpullsecret
       ocirpullsecret
     containers: |
-      $(OCIR)/$(CONTAINER_REPOSITORY_UI):$(Build.BuildNumber)
-      $(OCIR)/$(CONTAINER_REPOSITORY_PRICE):$(Build.BuildNumber)
-      $(OCIR)/$(CONTAINER_REPOSITORY_OPTIONS):$(Build.BuildNumber)
-      $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
+      $(OCIR)/$(NAMESPACE)/azure-test-ui:$(Build.BuildNumber)
+      $(OCIR)/$(NAMESPACE)/azure-test-price:$(Build.BuildNumber)
+      $(OCIR)/$(NAMESPACE)/azure-test-options:$(Build.BuildNumber)
+      $(OCIR)/$(NAMESPACE)/azure-test-adb-job:$(Build.BuildNumber)
 
 - task: KubernetesManifest@1
   displayName: 'Deploy Ingress'
