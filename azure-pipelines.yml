@@ -105,7 +105,7 @@ steps:
   inputs: 
     action: 'createSecret'
     secretType: 'dockerRegistry'
-    secretName: 'OcirPullSecret'
+    secretName: 'ocirpullsecret'
     dockerRegistryEndpoint: '$(CONTAINER_REGISTRY)'
     kubernetesServiceConnection: '$(K8S_CONNECTION_NAME)'
 
@@ -134,7 +134,7 @@ steps:
     manifests: |
       $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml
     imagePullSecrets: |
-      OcirPullSecret
+      ocirpullsecret
     containers: |
       $(OCIR)/$(CONTAINER_REPOSITORY_ADB_JOB):$(Build.BuildNumber)
 
@@ -148,9 +148,9 @@ steps:
       $(System.DefaultWorkingDirectory)/price/deployment-price.yaml
       $(System.DefaultWorkingDirectory)/options/deployment-options.yaml
     imagePullSecrets: |
-      OcirPullSecret
-      OcirPullSecret
-      OcirPullSecret
+      ocirpullsecret
+      ocirpullsecret
+      ocirpullsecret
     containers: |
       $(OCIR)/$(CONTAINER_REPOSITORY_UI):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_PRICE):$(Build.BuildNumber)
