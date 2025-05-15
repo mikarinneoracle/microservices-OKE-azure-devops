@@ -29,8 +29,6 @@ spec:
               secretKeyRef:
                 name: admin-password
                 key: admin-password
-      imagePullSecrets:
-      - name: OCIRPULLSECRET
       volumes:
         - name: secret-volume
           secret:

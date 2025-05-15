@@ -114,9 +114,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      ((Get-Content -path $(System.DefaultWorkingDirectory)/price/deployment-price.yaml -Raw) -replace 'OCIRPULLSECRET', '$(OCIRPULLSECRET)') | Set-Content -Path $(System.DefaultWorkingDirectory)/price/deployment-price.yaml
-      ((Get-Content -path $(System.DefaultWorkingDirectory)/options/deployment-options.yaml -Raw) -replace 'OCIRPULLSECRET', '$(OCIRPULLSECRET)') | Set-Content -Path $(System.DefaultWorkingDirectory)/options/deployment-options.yaml
-      ((Get-Content -path $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml -Raw) -replace 'OCIRPULLSECRET', '$(OCIRPULLSECRET)') | Set-Content -Path $(System.DefaultWorkingDirectory)/adb-job/deployment-adb-job.yaml
       ((Get-Content -path $(System.DefaultWorkingDirectory)/ui/deployment-ui.yaml -Raw) -replace 'OCIR/NAMESPACE', '$(OCIR)/$(NAMESPACE)') | Set-Content -Path $(System.DefaultWorkingDirectory)/ui/deployment-ui.yaml
       ((Get-Content -path $(System.DefaultWorkingDirectory)/price/deployment-price.yaml -Raw) -replace 'OCIR/NAMESPACE', '$(OCIR)/$(NAMESPACE)') | Set-Content -Path $(System.DefaultWorkingDirectory)/price/deployment-price.yaml
       ((Get-Content -path $(System.DefaultWorkingDirectory)/options/deployment-options.yaml -Raw) -replace 'OCIR/NAMESPACE', '$(OCIR)/$(NAMESPACE)') | Set-Content -Path $(System.DefaultWorkingDirectory)/options/deployment-options.yaml

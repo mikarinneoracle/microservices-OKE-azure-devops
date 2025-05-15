@@ -46,5 +46,3 @@ spec:
             value: "localhost:1521/MYATP"
           - name: AWAIT
             value: "180000"
-      imagePullSecrets:
-      - name: OCIRPULLSECRET
