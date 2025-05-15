@@ -20,5 +20,3 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
-      imagePullSecrets:
-      - name: OCIRPULLSECRET
