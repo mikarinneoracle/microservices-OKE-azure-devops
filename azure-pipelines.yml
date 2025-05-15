@@ -149,6 +149,8 @@ steps:
       $(System.DefaultWorkingDirectory)/options/deployment-options.yaml
     imagePullSecrets: |
       $(OcirPullSecret)
+      $(OcirPullSecret)
+      $(OcirPullSecret)
     containers: |
       $(OCIR)/$(CONTAINER_REPOSITORY_UI):$(Build.BuildNumber)
       $(OCIR)/$(CONTAINER_REPOSITORY_PRICE):$(Build.BuildNumber)
