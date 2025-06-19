@@ -23,8 +23,6 @@ spec:
           - name: AWAIT
             value: "60000"
       restartPolicy: OnFailure
-      imagePullSecrets:
-      - name: OCIRPULLSECRET
       volumes:
         - name: secret-volume
           secret:
